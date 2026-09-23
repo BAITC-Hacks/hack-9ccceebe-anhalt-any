@@ -1,0 +1,22 @@
+{
+  "columns": {},
+  "timezone": "UTC",
+  "wind_speed_unit": "m/s",
+  "temperature_unit": "C",
+  "power_unit": "kW",
+  "target_source": "Kelmarsh SCADA 2017 actual Power (kW); doi:10.5281/zenodo.16807551",
+  "weather_source": "Kelmarsh measured nacelle wind and outdoor nacelle temperature (SCADA)",
+  "rated_power": {
+    "Kelmarsh 1": 2050,
+    "Kelmarsh 2": 2050,
+    "Kelmarsh 3": 2050,
+    "Kelmarsh 4": 2050,
+    "Kelmarsh 5": 2050,
+    "Kelmarsh 6": 2050
+  },
+  "rated_power_verified": true,
+  "rated_power_source": "Kelmarsh_WT_static.csv, Zenodo record 16807551, Rated power (kW)",
+  "mode": "A",
+  "backend": "auto",
+  "reports_dir": "reports"
+}
