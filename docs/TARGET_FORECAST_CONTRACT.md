@@ -1,7 +1,6 @@
 # Target T1/T2 forecast contract (Person A / Person B / Person C)
 
-Status: integration and contract tests implemented; real organizer data, weather provider
-and target model are **not supplied**. No accuracy claim for T1/T2. Kelmarsh is an independent
+Status: integration and contract tests implemented. User-supplied T1/T2 hourly CSVs have been received and audited (see GOLDWIND_DELIVERY_REVIEW.md). Their source semantics remain unconfirmed; the strict weather provider and target model are **not supplied**. No accuracy claim for T1/T2. Kelmarsh is an independent
 observed-weather example and never a fallback for this path.
 
 ## Organizer protocol — required before enabling the target scenario

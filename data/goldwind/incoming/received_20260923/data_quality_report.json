@@ -1,0 +1,83 @@
+{
+  "turbine_mapping_note": "T1 assigned to first uploaded file with suffix (1); T2 to second uploaded base filename. Swap IDs if organisers specify otherwise.",
+  "T1": {
+    "rows": 149499,
+    "start": "2023-03-11 00:00:00",
+    "end": "2026-01-31 23:50:00",
+    "duplicate_datetime_turbine": 0,
+    "missing_values": {
+      "datetime": 0,
+      "turbine_id": 0,
+      "wind_speed": 0,
+      "temp": 0,
+      "power": 0
+    },
+    "wind_speed_min": 0.11,
+    "wind_speed_max": 21.43,
+    "temp_min": -19.08,
+    "temp_max": 43.97,
+    "power_min": 0.0,
+    "power_max": 1.0,
+    "gaps_gt_10min": 178
+  },
+  "T2": {
+    "rows": 142360,
+    "start": "2023-03-11 00:00:00",
+    "end": "2026-01-31 23:50:00",
+    "duplicate_datetime_turbine": 0,
+    "missing_values": {
+      "datetime": 0,
+      "turbine_id": 0,
+      "wind_speed": 0,
+      "temp": 0,
+      "power": 0
+    },
+    "wind_speed_min": 0.0,
+    "wind_speed_max": 22.97,
+    "temp_min": -19.26,
+    "temp_max": 43.48,
+    "power_min": 0.0,
+    "power_max": 1.0,
+    "gaps_gt_10min": 67
+  },
+  "combined": {
+    "rows": 291859,
+    "start": "2023-03-11 00:00:00",
+    "end": "2026-01-31 23:50:00",
+    "duplicate_datetime_turbine": 0,
+    "missing_values": {
+      "datetime": 0,
+      "turbine_id": 0,
+      "wind_speed": 0,
+      "temp": 0,
+      "power": 0
+    },
+    "wind_speed_min": 0.0,
+    "wind_speed_max": 22.97,
+    "temp_min": -19.26,
+    "temp_max": 43.97,
+    "power_min": 0.0,
+    "power_max": 1.0,
+    "gaps_gt_10min": 245
+  },
+  "hourly_rows": 50784,
+  "hourly_missing_by_column": {
+    "datetime": 0,
+    "turbine_id": 0,
+    "wind_speed": 2098,
+    "temp": 2098,
+    "power": 2098,
+    "sample_count": 0
+  },
+  "hourly_incomplete_hours_lt6_samples": 2332,
+  "hourly_bad_hours_lt3_samples": 2098,
+  "hourly_sample_count_distribution": {
+    "0": 2017,
+    "1": 36,
+    "2": 45,
+    "3": 39,
+    "4": 71,
+    "5": 124,
+    "6": 48452
+  }
+}

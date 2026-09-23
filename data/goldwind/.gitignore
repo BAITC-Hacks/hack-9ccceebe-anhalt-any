@@ -1,3 +1,11 @@
 *
 !.gitignore
 !README.md
+!incoming/
+!incoming/received_20260923/
+!incoming/received_20260923/historical_hourly.csv
+!incoming/received_20260923/historical_hourly_features.csv
+!incoming/received_20260923/data_quality_report.json
+!incoming/received_20260923/weather_requests_manifest.csv
+!incoming/received_20260923/weather_api.py
+!incoming/received_20260923/build_weather_cache.py

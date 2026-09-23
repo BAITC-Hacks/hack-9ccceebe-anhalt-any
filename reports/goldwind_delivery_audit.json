@@ -1,0 +1,247 @@
+{
+  "files": {
+    "build_weather_cache.py": {
+      "bytes": 1975,
+      "sha256": "cae2b9a905b3e071c1834762920e930a93a2dde46a0d1eea98f8300c6afe1efd"
+    },
+    "data_quality_report.json": {
+      "bytes": 1918,
+      "sha256": "517e909b9bcba8ebe8e0bb12ce90eea81c4e2550aa6de496d57c3ff84b7e17fe"
+    },
+    "historical_hourly.csv": {
+      "bytes": 3530312,
+      "sha256": "6815a27799acddbd50d64dca2bed97e8095c29f8462f070ec6197ab6268dd78a"
+    },
+    "historical_hourly_features.csv": {
+      "bytes": 20583156,
+      "sha256": "cb43110e9bd1d686efdde387bf3a18135380c802bd7d83c547c6d198c9875511"
+    },
+    "weather_api.py": {
+      "bytes": 5806,
+      "sha256": "8c17cd7c51e8d87a0d0051383f1968b2816a625f6764580ad7e43af88af93ea2"
+    },
+    "weather_requests_manifest.csv": {
+      "bytes": 19325,
+      "sha256": "cd0a9d43ad359a5f5d221ca43222591e3e01687396ffde4029a0eac90a2cde51"
+    }
+  },
+  "assumptions_confirmed": false,
+  "hourly": {
+    "rows": 50784,
+    "columns": [
+      "datetime",
+      "turbine_id",
+      "wind_speed",
+      "temp",
+      "power",
+      "sample_count"
+    ],
+    "timezone_in_file": null,
+    "duplicate_turbine_time": 0,
+    "off_hour_rows": 0,
+    "missing_by_column": {
+      "datetime": 0,
+      "turbine_id": 0,
+      "wind_speed": 2098,
+      "temp": 2098,
+      "power": 2098,
+      "sample_count": 0
+    },
+    "sample_count_distribution": {
+      "0": 2017,
+      "1": 36,
+      "2": 45,
+      "3": 39,
+      "4": 71,
+      "5": 124,
+      "6": 48452
+    },
+    "per_turbine": {
+      "T1": {
+        "rows": 25392,
+        "start": "2023-03-11 00:00:00",
+        "end": "2026-01-31 23:00:00",
+        "grid_hours": 25392,
+        "missing_grid_hours": 0,
+        "complete_six_sample_hours": 24785,
+        "hours_with_finite_values": 24943,
+        "sample_count_total": 149499,
+        "range": {
+          "wind_speed": {
+            "min": 0.2266666666666666,
+            "max": 19.406666666666663
+          },
+          "temp": {
+            "min": -18.648333333333333,
+            "max": 43.22333333333333
+          },
+          "power": {
+            "min": 0.0016666666666666,
+            "max": 0.995
+          }
+        }
+      },
+      "T2": {
+        "rows": 25392,
+        "start": "2023-03-11 00:00:00",
+        "end": "2026-01-31 23:00:00",
+        "grid_hours": 25392,
+        "missing_grid_hours": 0,
+        "complete_six_sample_hours": 23667,
+        "hours_with_finite_values": 23743,
+        "sample_count_total": 142360,
+        "range": {
+          "wind_speed": {
+            "min": 0.0,
+            "max": 20.398333333333333
+          },
+          "temp": {
+            "min": -18.426666666666662,
+            "max": 43.068333333333335
+          },
+          "power": {
+            "min": 0.005,
+            "max": 0.9983333333333334
+          }
+        }
+      }
+    },
+    "february_2026_rows": 0,
+    "complete_six_sample_hours": 48452,
+    "nonempty_incomplete_hours": 315
+  },
+  "features": {
+    "rows": 50784,
+    "columns": [
+      "datetime",
+      "turbine_id",
+      "wind_speed",
+      "temp",
+      "power",
+      "sample_count",
+      "hour",
+      "month",
+      "dayofweek",
+      "hour_sin",
+      "hour_cos",
+      "month_sin",
+      "month_cos",
+      "power_lag_1h",
+      "wind_lag_1h",
+      "power_lag_2h",
+      "wind_lag_2h",
+      "power_lag_3h",
+      "wind_lag_3h",
+      "power_lag_6h",
+      "wind_lag_6h",
+      "power_lag_12h",
+      "wind_lag_12h",
+      "power_lag_24h",
+      "wind_lag_24h",
+      "power_lag_48h",
+      "wind_lag_48h",
+      "power_roll_6h",
+      "power_roll_24h",
+      "wind_roll_6h"
+    ],
+    "join_counts": {
+      "both": 50784,
+      "left_only": 0,
+      "right_only": 0
+    },
+    "base_columns_equal": {
+      "wind_speed": true,
+      "temp": true,
+      "power": true,
+      "sample_count": true
+    },
+    "observed_power_derived_columns": [
+      "power_lag_1h",
+      "power_lag_2h",
+      "power_lag_3h",
+      "power_lag_6h",
+      "power_lag_12h",
+      "power_lag_24h",
+      "power_lag_48h",
+      "power_roll_6h",
+      "power_roll_24h"
+    ],
+    "observed_wind_derived_columns": [
+      "wind_lag_1h",
+      "wind_lag_2h",
+      "wind_lag_3h",
+      "wind_lag_6h",
+      "wind_lag_12h",
+      "wind_lag_24h",
+      "wind_lag_48h",
+      "wind_roll_6h"
+    ],
+    "rolling_checks": {
+      "power_roll_6h": {
+        "0": {
+          "compared_rows": 48168,
+          "matching_values": 2539
+        },
+        "1": {
+          "compared_rows": 48166,
+          "matching_values": 48166
+        }
+      },
+      "power_roll_24h": {
+        "0": {
+          "compared_rows": 46511,
+          "matching_values": 1496
+        },
+        "1": {
+          "compared_rows": 46509,
+          "matching_values": 46509
+        }
+      },
+      "wind_roll_6h": {
+        "0": {
+          "compared_rows": 48168,
+          "matching_values": 10
+        },
+        "1": {
+          "compared_rows": 48166,
+          "matching_values": 48166
+        }
+      }
+    }
+  },
+  "weather_requests": {
+    "rows": 58,
+    "first_date": "2026-01-31",
+    "last_date": "2026-02-28",
+    "turbines": [
+      "T1",
+      "T2"
+    ],
+    "horizons": [
+      48
+    ],
+    "endpoint_hosts": [
+      "single-runs-api.open-meteo.com"
+    ],
+    "requests_with_explicit_model": 0,
+    "columns": [
+      "run_date",
+      "turbine_id",
+      "latitude",
+      "longitude",
+      "run_utc",
+      "horizon_h",
+      "request_url"
+    ],
+    "weather_response_csv_files": [],
+    "response_payloads_present": false,
+    "availability_column_csv_files": [],
+    "weather_available_at_present": false
+  },
+  "provided_quality_report_matches_hourly": {
+    "row_count": true,
+    "missing_columns": true,
+    "counts_sum_matches_claimed_native_rows": true,
+    "native_rows_can_be_independently_audited": false
+  }
+}

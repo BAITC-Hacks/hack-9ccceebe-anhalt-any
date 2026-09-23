@@ -9,14 +9,14 @@ Old `docs/CONTRACTS.md` describes legacy/demo interfaces, not historical target 
   Kept as an independent observed-weather MODE A example, including native 10-minute data.
 - B PR #3, `feature/goldwind-model` through `e7e1f44`: organizer-data contract and hourly audit loader.
   Reviewed and integrated; corrected turbine assignment for reordered DataFrame indices with a regression test.
-  Preparation only: target provider, trained model, organizer files and target metrics remain absent.
+  Preparation only: target provider, trained model and target metrics remain absent. A user-supplied hourly export has now been received and audited; its metadata and native source files remain missing.
 - C: strict point-in-time forecasting, immutable weather/model versions, 24/48h rolling replay,
   T1/T2/farm results, local/optional OpenAI analysis, CLI/API/UI, acceptance report and tests.
 - A: no actual archived forecast adapter delivered in the reviewed remote branches.
 
 ## Next handoff
 
-1. Obtain organizer T1/T2 files and documented timezone, timestamp semantics, normalized power,
+1. Review `data/goldwind/incoming/received_20260923/` and `docs/GOLDWIND_DELIVERY_REVIEW.md`; obtain original inputs and documented timezone, timestamp semantics, normalized power,
    source wind height and data availability. Confirm `config/forecast_protocol.json`, including the
    first Jan 31 origin; do not guess or mark confirmed to bypass readiness.
 2. A delivers the archive adapter with actual payload availability evidence, units and 80m conversion.

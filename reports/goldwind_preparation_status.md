@@ -1,6 +1,12 @@
 # Goldwind organizer-data readiness — 2026-09-23
 
-**Status: PREPARATION ONLY / TRAINING BLOCKED.**
+**Updated status: hourly export received / TRAINING BLOCKED BY UNCONFIRMED SEMANTICS.**
+
+Since the original B report below, the user supplied an aggregated T1/T2 export.
+C audited 50,784 rows, copied all six supplied files byte-for-byte into
+`data/goldwind/incoming/received_20260923/`, and recorded SHA256 checksums.
+The user has no additional metadata. See `docs/GOLDWIND_DELIVERY_REVIEW.md`.
+The following original preparation report describes the state before that delivery.
 
 The user explicitly confirmed that organizer T1/T2 files/path have not been provided,
 and timezone, statistical timestamp meaning and normalized target definition are unconfirmed.
