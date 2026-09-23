@@ -1,5 +1,20 @@
 # HackAlem AI Energy Agent — ML layer
 
+## Agent provider (Person B)
+
+`ML_MODULE=src.ml.provider`, `MODEL_PATH=models/power_model.joblib`.
+Точный DATA-контракт, согласование A/C и ограничения: [ML_INFERENCE_CONTRACT](docs/ML_INFERENCE_CONTRACT.md).
+Адаптер принимает DatetimeIndex, три исходных погодных столбца и явный turbine context в attrs;
+возвращает **raw кВт без clipping**. Существующий DataFrame API не изменён.
+Текущий orchestrator ещё должен передавать turbine_id: одного изменения ML_MODULE недостаточно.
+T1/T2 Goldwind отклоняются; перенос модели Kelmarsh на них не подтверждён.
+
+Проверка опубликованного artifact без переобучения:
+
+```powershell
+python -m scripts.verify_ml_provider --report reports/provider_verification.json
+```
+
 ## Статус
 
 Рабочая папка при исследовании содержала только пустые `outputs/` и `work/`.
