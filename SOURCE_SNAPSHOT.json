@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/BAITC-Hacks/hack-9ccceebe-anhalt-any",
+  "branch": "main",
+  "commit": "c43262d632803fe3b11bbfc2c27ba72108decdbc",
+  "original_file_count": 136,
+  "source_archive_sha256": "e670f7284122a86c86f160cc6b133de457d04877f3487734b880cceafa6d3aad",
+  "changed_original_files": [
+    "README.md",
+    "pyproject.toml",
+    "src/api/main.py"
+  ],
+  "design_reference": "hackalem_ui_v5",
+  "verification": "224 Python tests passed, 1 skipped; JavaScript data and state checks passed; browser desktop and 390px mobile checked."
+}

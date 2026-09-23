@@ -17,3 +17,6 @@ include = ["src*"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[tool.setuptools.package-data]
+"src.app" = ["web/*.html", "web/*.css", "web/*.js", "web/*.svg", "web/assets/*.png"]
