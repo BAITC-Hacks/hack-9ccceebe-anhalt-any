@@ -1,0 +1,1 @@
+run_id,forecast_origin,horizon_h,valid_time,lead_hours,power_kw,energy_kwh,raw_power_kw,complete,missing_turbines,incomplete_turbines,model_version,weather_versions,flags

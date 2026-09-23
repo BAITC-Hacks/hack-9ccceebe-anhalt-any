@@ -1,0 +1,15 @@
+{
+  "run_id": "blocked-d9b1c9fb979721c79c6e",
+  "forecast_origin": "2026-01-31T23:00:00+00:00",
+  "horizon_h": 48,
+  "status": "blocked",
+  "rows": [],
+  "farm_rows": [],
+  "errors": {
+    "configuration": "Organizer protocol is unconfirmed: timezone, daily origin hour, interval labels and normalized-power definition; Target weather provider is not configured or cannot be imported; Target ML provider is not configured or cannot be imported; Organizer-trained Goldwind model and availability manifest are missing"
+  },
+  "analysis": null,
+  "analysis_source": "unavailable",
+  "cache_hit": false,
+  "note": "No target forecasts were produced; demo/Kelmarsh substitution is forbidden"
+}

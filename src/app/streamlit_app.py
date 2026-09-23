@@ -1,3 +1,4 @@
+import json
 import sys
 from datetime import date
 from pathlib import Path
@@ -12,10 +13,100 @@ from src.agent.observed import kelmarsh_turbines, run_observed_analysis
 from src.agent.orchestrator import run_forecast
 from src.agent.schemas import ForecastError
 from src.config import Settings
+from src.forecast.orchestrator import readiness, run_target_forecast
+
+
+def render_target_mode():
+    st.caption("Goldwind GW109/2500 · T1/T2 · 2 × 2500 кВт · архивные выпуски погоды")
+    st.info("Основной сценарий ТЗ: прогноз обеих турбин и всей ВЭС на 24–48 часов. "
+            "Время прогноза отделено от времени выпуска и доступности погодных данных.")
+    state = readiness()
+    if not state["ready"]:
+        st.error("Основной прогноз пока недоступен: требуется подтверждённая конфигурация и целевая модель.")
+        for blocker in state["blockers"]:
+            st.error(str(blocker))
+    else:
+        st.caption("Конфигурация найдена. Доступность архивного выпуска и граница обучающих данных "
+                   "будут проверены для выбранного момента запуска.")
+    st.caption("Время ниже — редактируемый пример. Расписание, timezone и смысл часового интервала "
+               "должны соответствовать подтверждённому протоколу организаторов. "
+               "Графики и выгрузка показывают время в UTC.")
+    with st.form("target_forecast"):
+        origin = st.text_input("Момент запуска (ISO 8601 с часовым поясом)",
+                               "2026-01-31T23:00:00+00:00", key="target_origin")
+        horizon = st.selectbox("Горизонт, часов", [24, 48], index=1, key="target_horizon")
+        refresh = st.checkbox("Проверить обновление погодных данных", value=False, key="target_refresh")
+        with_agent = st.checkbox("Анализ через OpenAI", value=False, key="target_agent")
+        submitted = st.form_submit_button("Рассчитать прогноз ВЭС", type="primary", disabled=not state["ready"])
+    if submitted:
+        st.session_state.pop("target_result", None)
+        try:
+            with st.spinner("Архивный выпуск → признаки → T1/T2 → сумма ВЭС → анализ…"):
+                st.session_state.target_result = run_target_forecast(
+                    origin, horizon, refresh=refresh, with_agent=with_agent)
+        except (ForecastError, ValueError) as exc:
+            st.error(str(exc))
+    result = st.session_state.get("target_result")
+    if result is None:
+        return
+    st.subheader(f"ВЭС T1 + T2 · {result['forecast_origin']} · {result['horizon_h']} ч")
+    st.caption(f"Запуск: {result['run_id']} · статус: {result['status']} · "
+               f"{'Сохранённый результат' if result.get('cache_hit') else 'Новый расчёт'}")
+    if result["status"] != "ok":
+        st.warning("Полного прогноза ВЭС нет. Пропуски и ошибки сохранены; отсутствующая турбина не считается нулём.")
+    for turbine_id, error in result.get("errors", {}).items():
+        st.error(f"{turbine_id}: {error}")
+    farm = pd.DataFrame(result.get("farm_rows", []))
+    rows = pd.DataFrame(result.get("rows", []))
+    complete_hours = int(farm.complete.sum()) if not farm.empty else 0
+    complete_energy = (farm.energy_kwh.sum() if complete_hours == result["horizon_h"]
+                       and not farm.energy_kwh.isna().any() else None)
+    cols = st.columns(3)
+    cols[0].metric("Энергия ВЭС, кВт·ч", f"{complete_energy:,.1f}" if complete_energy is not None else "Нет полного расчёта")
+    cols[1].metric("Полных часов ВЭС", f"{complete_hours}/{result['horizon_h']}")
+    cols[2].metric("Номинальная мощность ВЭС, кВт", "5000")
+    series = []
+    if not rows.empty:
+        series.append(rows[["valid_time", "turbine_id", "power_kw"]].rename(columns={"turbine_id": "series"}))
+    if not farm.empty:
+        series.append(farm[["valid_time", "power_kw"]].assign(series="ВЭС T1 + T2"))
+    if series:
+        for item in series:
+            item["power_kw"] = pd.to_numeric(item.power_kw, errors="coerce").astype(float)
+        chart_frame = pd.concat(series, ignore_index=True)
+        chart_frame["valid_time"] = pd.to_datetime(chart_frame.valid_time, utc=True)
+        chart_frame["timestamp_utc"] = chart_frame.valid_time.dt.strftime("%Y-%m-%d %H:%M UTC")
+        chart = alt.Chart(chart_frame).mark_line().encode(
+            x=alt.X("valid_time:T", title="Начало часового интервала, UTC", scale=alt.Scale(type="utc"),
+                    axis=alt.Axis(format="%d.%m %H:%M")),
+            y=alt.Y("power_kw:Q", title="Мощность, кВт"), color=alt.Color("series:N", title=None),
+            tooltip=[alt.Tooltip("timestamp_utc:N", title="UTC"), alt.Tooltip("series:N", title="Ряд"),
+                     alt.Tooltip("power_kw:Q", title="кВт")])
+        st.subheader("Мощность T1, T2 и станции")
+        st.altair_chart(chart, width="stretch")
+        if not farm.empty:
+            st.subheader("Почасовой прогноз ВЭС")
+            st.dataframe(farm, hide_index=True)
+        if not rows.empty:
+            with st.expander("Прогнозы турбин и происхождение данных"):
+                st.dataframe(rows, hide_index=True)
+    analysis = result.get("analysis") or {}
+    if analysis:
+        st.subheader("Анализ")
+        st.caption(f"Источник: {result.get('analysis_source', '—')} · Риск: {analysis.get('risk_level', '—')}")
+        st.write(analysis.get("summary", ""))
+        st.write(analysis.get("recommendation", ""))
+        if analysis.get("confidence_note"):
+            st.info(analysis["confidence_note"])
+    st.download_button("Скачать JSON прогноза ВЭС", json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False),
+                       "target_forecast.json", "application/json")
 
 st.set_page_config(page_title="AI Energy Agent", page_icon="🌬️", layout="wide")
 st.title("AI Energy Agent")
-mode = st.sidebar.radio("Сценарий", ["Реальные данные Kelmarsh", "Синтетическое демо", "Прогноз Goldwind (нужен DATA-провайдер)"])
+mode = st.sidebar.radio("Сценарий", ["Прогноз ВЭС T1/T2", "Реальные данные Kelmarsh", "Синтетическое демо"])
+if mode == "Прогноз ВЭС T1/T2":
+    render_target_mode()
+    st.stop()
 observed = mode == "Реальные данные Kelmarsh"
 demo = mode == "Синтетическое демо"
 settings = Settings.from_env(demo)
@@ -30,9 +121,6 @@ if observed:
 elif demo:
     st.caption("Goldwind GW109/2500 · 2 × 2,5 МВт · UTC")
     st.warning("ДЕМО: синтетическая погода и модель, обученная на синтетике. Это не реальный прогноз станции.")
-else:
-    st.caption("Goldwind GW109/2500 · T1/T2 · UTC")
-    st.warning("Нужны настроенные DATA/ML-провайдеры. Модель Kelmarsh отклоняет T1/T2: перенос не валидирован.")
 with st.form(f"run_{mode}"):
     c1, c2, c3 = st.columns(3)
     turbine = c1.selectbox("Турбина", list(turbines), key=f"turbine_{mode}")

@@ -1,0 +1,10 @@
+{
+  "ready": false,
+  "blockers": [
+    "Organizer protocol is unconfirmed: timezone, daily origin hour, interval labels and normalized-power definition",
+    "Target weather provider is not configured or cannot be imported",
+    "Target ML provider is not configured or cannot be imported",
+    "Organizer-trained Goldwind model and availability manifest are missing"
+  ],
+  "scope": "Structural readiness only; vintage availability and training cutoff are checked per origin"
+}
