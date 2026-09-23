@@ -42,7 +42,7 @@ class ForecastProtocol(Contract):
 
     def require_confirmed(self):
         if not self.confirmed:
-            raise ForecastError("Organizer timezone, hourly labels and normalized-power definition are not confirmed")
+            raise ForecastError("Source CSV timezone, hourly labels and normalized-power definition are not confirmed")
 
 
 class ModelManifest(Contract):
@@ -65,6 +65,12 @@ class ModelManifest(Contract):
     selection_target_interval_end: datetime
     availability_evidence: str = Field(min_length=1)
 
+    @field_validator("timezone")
+    @classmethod
+    def model_calendar_exists(cls, value):
+        ZoneInfo(value)
+        return value
+
     @model_validator(mode="after")
     def validate_times_and_features(self):
         for field in ("training_data_available_until", "selection_data_available_until",
@@ -83,8 +89,8 @@ class ModelManifest(Contract):
 
 
 class ForecastSettings(Contract):
-    data_module: str = ""
-    ml_module: str = ""
+    data_module: str = "src.data.weather"
+    ml_module: str = "src.ml.goldwind_provider"
     model_path: Path = ROOT / "models/goldwind/power_model.joblib"
     manifest_path: Path = ROOT / "models/goldwind/forecast_manifest.json"
     protocol_path: Path = ROOT / "config/forecast_protocol.json"
@@ -101,8 +107,8 @@ class ForecastSettings(Contract):
         def path(name, default):
             p = Path(os.getenv(name) or default)
             return p if p.is_absolute() else ROOT / p
-        return cls(data_module=os.getenv("FORECAST_DATA_MODULE", ""),
-                   ml_module=os.getenv("FORECAST_ML_MODULE", ""),
+        return cls(data_module=os.getenv("FORECAST_DATA_MODULE") or "src.data.weather",
+                   ml_module=os.getenv("FORECAST_ML_MODULE") or "src.ml.goldwind_provider",
                    model_path=path("FORECAST_MODEL_PATH", "models/goldwind/power_model.joblib"),
                    manifest_path=path("FORECAST_MANIFEST_PATH", "models/goldwind/forecast_manifest.json"),
                    protocol_path=path("FORECAST_PROTOCOL_PATH", "config/forecast_protocol.json"),

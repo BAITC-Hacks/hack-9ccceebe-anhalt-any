@@ -3,12 +3,22 @@ from __future__ import annotations
 import json
 import os
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def team_forecast_origin() -> str:
+    """UI execution default, independent of unconfirmed source CSV semantics."""
+    schedule = json.loads((ROOT / "config/forecast_schedule.json").read_text())
+    value = schedule["first_forecast_origin"]
+    if datetime.fromisoformat(value).tzinfo is None:
+        raise ValueError("Team forecast origin requires a timezone")
+    return value
 
 
 class Turbine(BaseModel):

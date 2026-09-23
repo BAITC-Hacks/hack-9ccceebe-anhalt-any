@@ -34,7 +34,7 @@ const timers = new Map();
 const requests = [];
 const fetch = async (path, options) => {
   requests.push({ path, options });
-  if (path === '/dashboard/config') return { ok: true, json: async () => ({ turbines: registry, observed_turbines: ['Kelmarsh 1','Kelmarsh 2'] }) };
+  if (path === '/dashboard/config') return { ok: true, json: async () => ({ first_forecast_origin: '2026-01-31T23:00:00+05:00', turbines: registry, observed_turbines: ['Kelmarsh 1','Kelmarsh 2'] }) };
   if (path === '/readiness') return { ok: true, json: async () => ({ ready: false, blockers: ['Model missing'] }) };
   return await new Promise((resolve, reject) => {
     pending = payload => resolve({ ok: true, json: async () => payload });
@@ -50,6 +50,7 @@ const flush = () => new Promise(resolve => setImmediate(resolve));
 (async () => {
   await flush();
   assert.equal(ids['data-mode'].value, 'target');
+  assert.equal(ids.origin.value, '2026-01-31T23:00:00+05:00');
   assert.equal(ids['run-forecast'].disabled, true);
   assert.equal(ids['export-forecast'].disabled, true);
   assert.equal(metrics.energy.textContent, '—');

@@ -14,7 +14,7 @@ from src.forecast.orchestrator import readiness, run_target_forecast
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--origin', help='Timezone-aware ISO forecast origin, e.g. 2026-01-31T23:00:00Z')
+    parser.add_argument('--origin', help='Timezone-aware ISO forecast origin, e.g. 2026-01-31T23:00:00+05:00')
     parser.add_argument('--horizon', choices=[24, 48], type=int, default=48)
     parser.add_argument('--refresh', action='store_true')
     parser.add_argument('--with-agent', action='store_true')

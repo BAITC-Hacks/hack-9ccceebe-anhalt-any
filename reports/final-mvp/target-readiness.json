@@ -1,0 +1,8 @@
+{
+  "ready": false,
+  "blockers": [
+    "Source semantics are unconfirmed: CSV timezone, interval labels and normalized-power definition; the team execution schedule alone does not confirm them",
+    "Organizer-trained Goldwind model and availability manifest are missing"
+  ],
+  "scope": "Structural readiness only; vintage availability and training cutoff are checked per origin"
+}

@@ -1,0 +1,16 @@
+{
+  "decision_scope": "Team-selected forecast execution and output calendar; not a declaration of source CSV timezone or units",
+  "confirmed_by_team": true,
+  "timezone": "Asia/Almaty",
+  "daily_origin_hour": 23,
+  "first_lead_hour": 1,
+  "first_forecast_origin": "2026-01-31T23:00:00+05:00",
+  "first_forecast_origin_utc": "2026-01-31T18:00:00Z",
+  "origin_start_date": "2026-01-31",
+  "origin_end_date": "2026-02-28",
+  "evaluation_start_inclusive": "2026-02-01T00:00:00+05:00",
+  "evaluation_end_exclusive": "2026-03-01T00:00:00+05:00",
+  "output_interval_label": "start",
+  "forecast_origin_source": "Team integration decision authorized by the user on 2026-09-23; config/forecast_schedule.json and docs/FORECAST_SCHEDULE_DECISION.md",
+  "source_metadata_confirmed": false
+}

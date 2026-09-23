@@ -31,7 +31,8 @@ def test_dashboard_config_returns_only_public_registry(monkeypatch):
     response = TestClient(main.app).get("/dashboard/config")
     assert response.status_code == 200
     config = response.json()
-    assert set(config) == {"turbines", "observed_turbines"}
+    assert set(config) == {"turbines", "observed_turbines", "first_forecast_origin"}
+    assert config["first_forecast_origin"] == "2026-01-31T23:00:00+05:00"
     assert set(config["turbines"]) == {"T1", "T2"}
     assert config["turbines"]["T1"]["rated_power_kw"] == 2500
     assert config["observed_turbines"] == [f"Kelmarsh {i}" for i in range(1, 7)]

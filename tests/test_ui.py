@@ -39,7 +39,7 @@ def test_target_default_blocks_without_model_and_keeps_other_modes(monkeypatch):
     assert any('Целевая модель' in error.value for error in app.error)
     assert app.button[0].disabled
     assert app.selectbox[0].value == 48
-    assert app.text_input[0].value == '2026-01-31T23:00:00+00:00'
+    assert app.text_input[0].value == '2026-01-31T23:00:00+05:00'
     assert set(app.sidebar.radio[0].options) == {
         'Прогноз ВЭС T1/T2', 'Реальные данные Kelmarsh', 'Синтетическое демо'}
     run.assert_not_called()
@@ -74,7 +74,7 @@ def test_target_ui_success_and_partial_preserve_farm_coverage(monkeypatch, missi
     app.checkbox[1].set_value(True)
     app.button[0].click().run(timeout=30)
     assert not app.exception
-    run.assert_called_once_with('2026-01-31T23:00:00+00:00', 24, refresh=True, with_agent=True)
+    run.assert_called_once_with('2026-01-31T23:00:00+05:00', 24, refresh=True, with_agent=True)
     assert len(app.metric) == 3
     assert app.metric[0].value == ('Нет полного расчёта' if missing_turbine else '4,800.0')
     assert app.metric[1].value == ('0/24' if missing_turbine else '24/24')

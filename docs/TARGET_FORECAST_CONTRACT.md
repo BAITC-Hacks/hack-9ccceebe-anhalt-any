@@ -1,12 +1,13 @@
 # Target T1/T2 forecast contract (Person A / Person B / Person C)
 
-Status: integration and contract tests implemented. User-supplied T1/T2 hourly CSVs have been received and audited (see GOLDWIND_DELIVERY_REVIEW.md). Their source semantics remain unconfirmed; the strict weather provider and target model are **not supplied**. No accuracy claim for T1/T2. Kelmarsh is an independent
+Status: integration and contract tests implemented. User-supplied T1/T2 hourly CSVs have been received and audited (see GOLDWIND_DELIVERY_REVIEW.md). Their source semantics remain unconfirmed; A weather provider and B Goldwind training/provider code are integrated. A real Goldwind artifact and evidence of weather version availability are **not supplied**. No accuracy claim for T1/T2. Kelmarsh is an independent
 observed-weather example and never a fallback for this path.
 
 ## Organizer protocol — required before enabling the target scenario
 
-`config/forecast_protocol.json` intentionally has `confirmed: false` and unknown timezone/hour.
-A must obtain the dataset and written definitions; B must use the same definitions for training.
+`config/forecast_protocol.json` intentionally has `confirmed: false`. The team selected
+23:00 Asia/Almaty with first lead 1; see `config/forecast_schedule.json`.
+Source CSV timezone/units remain unknown. A must obtain written definitions; B must use them for training.
 C then records evidence and confirms the protocol. Coordinates do not establish SCADA timezone.
 Do not toggle confirmation merely to make readiness pass.
 
@@ -14,7 +15,7 @@ Required fields:
 
 | Field | Meaning |
 | --- | --- |
-| `timezone` | Confirmed IANA timezone for source labels, origin calendar dates and February evaluation |
+| `timezone` | Team IANA timezone for origin dates and February evaluation; source CSV timezone is a separate B contract field |
 | `daily_origin_hour` | Agreed daily local launch hour, 0–23 |
 | `first_lead_hour` | 0 or 1; agreed first hourly interval relative to origin |
 | `interval_label` | Currently `start`: valid_time denotes [valid_time, valid_time + 1 h) |
@@ -112,7 +113,7 @@ Manifest schema (`src/forecast/contracts.py:ModelManifest`):
 | `feature_columns` | Ordered raw/derived names, at least wind_speed_ms and temperature_c |
 | `output_unit` | `kW` |
 | `normalized_target_definition` | `fraction_of_rated_power`, after confirmed conversion |
-| `timezone`, `interval_minutes` | Match organizer protocol, 60 minutes |
+| `timezone`, `interval_minutes` | Confirmed source/model calendar timezone (may differ from execution timezone); 60 minutes |
 | `training_data_available_until` | Latest actual availability among all fit data, aware ISO |
 | `selection_data_available_until` | Latest availability among every validation/selection datum |
 | `training_target_interval_end` | Latest training target interval end, not its start label |
@@ -135,12 +136,13 @@ python scripts/replay_february.py --horizon 48 --output-dir results/february
 python scripts/replay_february.py --horizon 48 --actuals data/organizer/february_actuals.csv --output-dir results/february-evaluated
 ```
 
-Set `FORECAST_DATA_MODULE`, `FORECAST_ML_MODULE`, `FORECAST_MODEL_PATH`,
+Integrated defaults are `FORECAST_DATA_MODULE=src.data.weather` and
+`FORECAST_ML_MODULE=src.ml.goldwind_provider`. Override `FORECAST_MODEL_PATH`,
 `FORECAST_MANIFEST_PATH`, `FORECAST_PROTOCOL_PATH`, optional `FORECAST_CACHE_DIR` and
 `FORECAST_RESULTS_DIR`. They are separate from legacy/demo provider variables.
 Exit 0 means ready/complete; exit 2 means blocked/partial. Missing inputs produce explicit blocked
 JSON, not a pretend successful forecast. Unconfirmed protocol produces header-only replay CSVs
-and a blocked manifest because the schedule itself cannot be determined.
+and a blocked manifest because source semantics are not yet confirmed, even though the team schedule is selected.
 
 `--refresh` accepts only historically eligible revisions. `run_id` hashes origin, horizon,
 protocol, registry, manifest/model hash, weather hashes, engine source and provider package source.

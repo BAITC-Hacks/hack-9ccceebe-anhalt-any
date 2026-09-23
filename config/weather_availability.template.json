@@ -1,0 +1,11 @@
+{
+  "confirmed": false,
+  "model": "ecmwf_ifs",
+  "basis": "documented_delay",
+  "covers_archived_revision": false,
+  "evidence": "Pending publisher evidence for the actual archived revision, not just NWP initialization.",
+  "valid_from": "2026-01-31T00:00:00Z",
+  "valid_until": "2026-02-28T23:00:00Z",
+  "delay_hours": null,
+  "runs": []
+}

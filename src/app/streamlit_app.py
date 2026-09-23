@@ -12,7 +12,7 @@ import streamlit as st
 from src.agent.observed import kelmarsh_turbines, run_observed_analysis
 from src.agent.orchestrator import run_forecast
 from src.agent.schemas import ForecastError
-from src.config import Settings
+from src.config import Settings, team_forecast_origin
 from src.forecast.orchestrator import readiness, run_target_forecast
 
 
@@ -28,12 +28,12 @@ def render_target_mode():
     else:
         st.caption("Конфигурация найдена. Доступность архивного выпуска и граница обучающих данных "
                    "будут проверены для выбранного момента запуска.")
-    st.caption("Время ниже — редактируемый пример. Расписание, timezone и смысл часового интервала "
-               "должны соответствовать подтверждённому протоколу организаторов. "
+    st.caption("Расписание команды: ежедневно в 23:00 Asia/Almaty, первый прогноз — на следующий час. "
+               "Timezone исходных CSV, смысл интервала и единицы мощности ещё требуют подтверждения. "
                "Графики и выгрузка показывают время в UTC.")
     with st.form("target_forecast"):
         origin = st.text_input("Момент запуска (ISO 8601 с часовым поясом)",
-                               "2026-01-31T23:00:00+00:00", key="target_origin")
+                               team_forecast_origin(), key="target_origin")
         horizon = st.selectbox("Горизонт, часов", [24, 48], index=1, key="target_horizon")
         refresh = st.checkbox("Проверить обновление погодных данных", value=False, key="target_refresh")
         with_agent = st.checkbox("Анализ через OpenAI", value=False, key="target_agent")

@@ -37,6 +37,11 @@ class GoldwindContract:
     first_forecast_origin: str | None = None
     forecast_origin_source: str | None = None
     minimum_hour_coverage: float = 1.0
+    input_layout: str = "raw_intervals"
+    turbine_mapping: dict | None = None  # source labels -> confirmed physical T1/T2
+    source_interval_minutes: int | None = None
+    aggregation_source: str | None = None
+    coverage_source: str | None = None  # sample_count counts distinct valid interval means
 
     def validate(self, training=False):
         required = ["dataset_source", "metadata_source", "file_identity_source", "timezone",
@@ -45,9 +50,23 @@ class GoldwindContract:
         missing = [name for name in required if getattr(self, name) is None or getattr(self, name) == ""]
         if missing:
             raise ValueError(f"Confirm organizer metadata; missing: {', '.join(missing)}")
-        if set(self.files) != set(TURBINES) or not all(isinstance(p, str) and p for p in self.files.values()):
+        if self.input_layout not in {"raw_intervals", "hourly_aggregates"}:
+            raise ValueError("Unknown input_layout")
+        if self.input_layout == "hourly_aggregates":
+            if set(self.files) != {"hourly"} or not isinstance(self.files["hourly"], str) or not self.files["hourly"]:
+                raise ValueError("hourly_aggregates requires files.hourly")
+            if not {"turbine_id", "sample_count"}.issubset(self.columns):
+                raise ValueError("Hourly export must map turbine_id and sample_count")
+            if (not isinstance(self.turbine_mapping, dict) or len(self.turbine_mapping) != 2
+                    or set(self.turbine_mapping.values()) != set(TURBINES)):
+                raise ValueError("Confirm source-label to physical T1/T2 turbine_mapping")
+            step = self.source_interval_minutes
+            if (type(step) is not int or step < 1 or step > 60 or 60 % step
+                    or self.interval_minutes != 60 or not self.aggregation_source or not self.coverage_source):
+                raise ValueError("Confirm hourly aggregation, source_interval_minutes and sample_count coverage_source")
+        elif set(self.files) != set(TURBINES) or not all(isinstance(p, str) and p for p in self.files.values()):
             raise ValueError("files must explicitly map both T1 and T2 to real organizer paths")
-        if len(set(self.files.values())) != 2:
+        if self.input_layout == "raw_intervals" and len(set(self.files.values())) != 2:
             raise ValueError("Use separate confirmed exports for T1/T2; a mixed file needs an explicit partition policy")
         if not {"timestamp", "wind_speed", "temperature", "target"}.issubset(self.columns):
             raise ValueError("columns must map timestamp, wind_speed, temperature, target")
@@ -88,7 +107,7 @@ def read_organizer_files(contract, base_dir=Path(".")):
     contract.validate()
     frames, provenance = [], []
     resolved_paths = [(base_dir / filename).resolve() for filename in contract.files.values()]
-    if len(set(resolved_paths)) != 2:
+    if len(set(resolved_paths)) != len(resolved_paths):
         raise ValueError("The same file cannot stand in for two separate turbine exports")
     for turbine, filename in contract.files.items():
         path = (base_dir / filename).resolve()
@@ -101,10 +120,18 @@ def read_organizer_files(contract, base_dir=Path(".")):
         else:
             raise ValueError("Supported organizer exports: CSV/Parquet; do not infer undocumented workbook sheets")
         mapped_id = contract.columns.get("turbine_id")
-        if mapped_id and (mapped_id not in frame or not frame[mapped_id].eq(turbine).all()):
+        if contract.input_layout == "hourly_aggregates":
+            if mapped_id not in frame:
+                raise ValueError("Missing turbine identity column")
+            identities = frame[mapped_id].map(contract.turbine_mapping)
+            if identities.isna().any():
+                raise ValueError("Unconfirmed source turbine identity")
+        elif mapped_id and (mapped_id not in frame or not frame[mapped_id].eq(turbine).all()):
             raise ValueError(f"File identity disagrees with confirmed {turbine} mapping")
         frame = frame.copy()
-        frame["_organizer_turbine"] = turbine
+        if mapped_id:
+            frame["_source_turbine_id"] = frame[mapped_id]  # Keep labels even when physical IDs are remapped.
+        frame["_organizer_turbine"] = identities if contract.input_layout == "hourly_aggregates" else turbine
         frame["_source_file"] = path.name
         frame["_source_row"] = np.arange(2, len(frame) + 2)
         frames.append(frame)
@@ -165,6 +192,14 @@ def prepare_hourly(raw, contract):
         raise ValueError("Interval-mean data cannot be available before the interval ends")
     keys = ["turbine_id", "interval_start"]
     relevant = keys + ["wind_speed_ms", "temperature_c", "power_kw", "available_at"]
+    data["observed_minutes"] = contract.interval_minutes
+    if contract.input_layout == "hourly_aggregates":
+        counts = pd.to_numeric(canonical["sample_count"], errors="raise")
+        maximum = 60 // contract.source_interval_minutes
+        if (~np.isfinite(counts) | (counts % 1 != 0) | ~counts.between(0, maximum)).any():
+            raise ValueError("Invalid sample_count; cannot establish interval coverage")
+        data["observed_minutes"] = counts * contract.source_interval_minutes
+        relevant.append("observed_minutes")
     data["exact_duplicate"] = data.duplicated(relevant)
     unique = data.loc[~data.exact_duplicate]
     if unique.duplicated(keys).any():
@@ -182,7 +217,7 @@ def prepare_hourly(raw, contract):
     data["valid_joint"] = ~(data.invalid_wind | data.invalid_temperature | data.missing_power)
     subset = data.loc[data.within_training_period & ~data.exact_duplicate].copy()
     subset["timestamp"] = subset.interval_start.dt.floor("h")
-    minutes = contract.interval_minutes
+    minutes = subset.observed_minutes
     for source, valid, key in [("wind_speed_ms", ~subset.invalid_wind, "wind"),
                                ("temperature_c", ~subset.invalid_temperature, "temp"),
                                ("power_kw", ~subset.missing_power, "power")]:

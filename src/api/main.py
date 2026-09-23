@@ -10,7 +10,7 @@ from src.agent.observed import kelmarsh_turbines, run_observed_analysis
 from src.agent.orchestrator import run_forecast
 from src.agent.schemas import (ForecastError, ForecastRequest, ForecastResult,
                                ObservedRequest, ObservedResult)
-from src.config import ROOT, Settings, Turbine
+from src.config import ROOT, Settings, Turbine, team_forecast_origin
 from src.forecast.orchestrator import readiness, run_target_forecast
 
 app = FastAPI(title="AI Energy Agent", version="0.1.0")
@@ -33,6 +33,7 @@ def health():
 class DashboardConfig(BaseModel):
     turbines: dict[str, Turbine]
     observed_turbines: list[str]
+    first_forecast_origin: AwareDatetime
 
 
 @app.get("/dashboard/config", response_model=DashboardConfig)
@@ -40,7 +41,8 @@ def dashboard_config():
     try:
         registry = Settings.from_env().turbines()
         return {"turbines": {name: registry[name] for name in ("T1", "T2")},
-                "observed_turbines": list(kelmarsh_turbines())}
+                "observed_turbines": list(kelmarsh_turbines()),
+                "first_forecast_origin": team_forecast_origin()}
     except (OSError, ValueError, TypeError, KeyError) as exc:
         raise HTTPException(status_code=422, detail="Cannot read valid dashboard turbine configuration") from exc
 

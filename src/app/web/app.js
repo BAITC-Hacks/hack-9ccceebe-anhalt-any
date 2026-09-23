@@ -102,7 +102,6 @@
     dates: { demo: "2026-02-10", observed: "2017-11-08" },
   };
   if (modeControl) modeControl.value = "target";
-  if (originControl && !originControl.value) originControl.value = "2026-01-31T23:00:00+00:00";
   const horizon = () => horizonControl?.value === "48" ? 48 : 24;
   const selected = () => state.mode === "observed" ? "all"
     : ["T1", "T2"].includes(turbineControl?.value) ? turbineControl.value : "all";
@@ -439,7 +438,7 @@
     let path, body;
     if (mode === "target") {
       const origin = originControl?.value.trim();
-      if (!origin || !/(Z|[+-]\d{2}:\d{2})$/.test(origin) || !Number.isFinite(Date.parse(origin))) { error("Укажите дату и время ISO с часовым поясом, например 2026-01-31T23:00:00+00:00."); return; }
+      if (!origin || !/(Z|[+-]\d{2}:\d{2})$/.test(origin) || !Number.isFinite(Date.parse(origin))) { error("Укажите дату и время ISO с часовым поясом, например 2026-01-31T23:00:00+05:00."); return; }
       path = "/target-forecast"; body = { forecast_origin: origin, horizon_h: horizon(), refresh: false, with_agent: false };
     } else {
       const date = dateControl?.value;
@@ -539,6 +538,7 @@
   refreshReadiness();
   request("/dashboard/config").then((config) => {
     state.config = config;
+    if (originControl && !originControl.value) originControl.value = config.first_forecast_origin || "";
     if (observedControl) {
       observedControl.replaceChildren();
       safeList(config.observed_turbines).forEach((name) => { const option = document.createElement("option"); option.value = name; option.textContent = name; observedControl.append(option); });

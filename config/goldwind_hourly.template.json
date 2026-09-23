@@ -1,14 +1,27 @@
 {
-  "files": {"T1": null, "T2": null},
-  "columns": {"timestamp": null, "wind_speed": null, "temperature": null, "target": null},
+  "input_layout": "hourly_aggregates",
+  "files": {
+    "hourly": "../data/goldwind/incoming/received_20260923/historical_hourly.csv"
+  },
+  "columns": {
+    "timestamp": "datetime",
+    "wind_speed": "wind_speed",
+    "temperature": "temp",
+    "target": "power",
+    "turbine_id": "turbine_id",
+    "sample_count": "sample_count"
+  },
+  "turbine_mapping": null,
   "dataset_source": null,
   "metadata_source": null,
   "file_identity_source": null,
   "timezone": null,
   "timestamp_format": null,
-  "available_at_format": null,
   "timestamp_label": null,
-  "interval_minutes": null,
+  "interval_minutes": 60,
+  "source_interval_minutes": null,
+  "aggregation_source": null,
+  "coverage_source": null,
   "measurement_semantics": null,
   "wind_unit": null,
   "temperature_unit": null,

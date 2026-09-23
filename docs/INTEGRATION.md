@@ -1,44 +1,47 @@
 # Team integration
 
-The official target path is specified in [TARGET_FORECAST_CONTRACT.md](TARGET_FORECAST_CONTRACT.md).
-Old `docs/CONTRACTS.md` describes legacy/demo interfaces, not historical target acceptance.
+The official T1/T2 path is specified in [TARGET_FORECAST_CONTRACT.md](TARGET_FORECAST_CONTRACT.md).
+Legacy/demo interfaces remain in [CONTRACTS.md](CONTRACTS.md).
 
 ## Integrated work
 
-- B PR #2, `ml-model-mode-a` through `abc7060`: frozen Kelmarsh model and raw-kW adapter.
-  Kept as an independent observed-weather MODE A example, including native 10-minute data.
-- B PR #3, `feature/goldwind-model` through `e7e1f44`: organizer-data contract and hourly audit loader.
-  Reviewed and integrated; corrected turbine assignment for reordered DataFrame indices with a regression test.
-  Preparation only: target provider, trained model and target metrics remain absent. A user-supplied hourly export has now been received and audited; its metadata and native source files remain missing.
-- C: strict point-in-time forecasting, immutable weather/model versions, 24/48h rolling replay,
-  T1/T2/farm results, local/optional OpenAI analysis, CLI/API/UI, acceptance report and tests.
-- A: no actual archived forecast adapter delivered in the reviewed remote branches.
+- Main `3caf01f`: final WindAgent browser UI, launcher, API and frontend tests.
+- A `feature/data-weather` through `13e3edb`, PR #4: received-data audit/cleaning,
+  features, ECMWF Single Runs client, integrity-checked cache and strict weather adapter.
+- B `feature/goldwind-model` through `202b6ba`, PR #5: explicit mixed-hourly CSV
+  contract, coverage handling, temporal training/evaluation and raw-kW Goldwind provider.
+  No real Goldwind model has been trained; software fixtures are not station validation.
+- Earlier B PRs #2/#3: frozen Kelmarsh model, MODE A adapter and organizer-data preparation.
+- C: strict origin/availability guards, immutable results, 24/48-hour forecasts,
+  both turbines and farm aggregation, February replay, deterministic/optional OpenAI analysis.
 
-## Next handoff
+A/B branches were merged through Git. The documentation conflict retained the team-selected
+schedule and B's implemented provider. Tests exercise A's real feature adapter, a B artifact
+trained on artificial software data, and C's orchestrator together at 24/48 hours.
 
-1. Review `data/goldwind/incoming/received_20260923/` and `docs/GOLDWIND_DELIVERY_REVIEW.md`; obtain original inputs and documented timezone, timestamp semantics, normalized power,
-   source wind height and data availability. Confirm `config/forecast_protocol.json`, including the
-   first Jan 31 origin; do not guess or mark confirmed to bypass readiness.
-2. A delivers the archive adapter with actual payload availability evidence, units and 80m conversion.
-3. B fills the Goldwind dataset contract, prepares/audits data, trains without using unavailable
-   intervals, and delivers a trusted target artifact/provider plus the strict availability manifest.
-   Use `FORECAST_*` variables; do not point target settings at Kelmarsh.
-4. Review A/B diffs, provenance and dependencies through Git; run the complete tests, then actual commands:
+Default target providers now resolve to `src.data.weather` and `src.ml.goldwind_provider`.
+Both UIs use the first origin from `config/forecast_schedule.json`:
+**2026-01-31T23:00:00+05:00** (18:00 UTC), then daily 23:00 Asia/Almaty, first lead 1.
+The model's confirmed source/calendar timezone may differ from this execution calendar;
+all cutoff and weather comparisons use aware UTC instants.
+
+## Remaining data handoff
+
+1. Confirm the received CSV's source timezone, interval labels, physical turbine mapping,
+   units/normalization, sample_count/aggregation, sensor height and release delay.
+   Fill `config/goldwind_hourly.template.json`; unknown fields remain null.
+2. Supply evidence that each weather payload/version was available at its historical origin.
+   Downloading an old run today is not that evidence. A's availability policy stays unconfirmed.
+3. Train B's Goldwind bundle from eligible pre-origin records; inspect coverage, splits,
+   validation and manifest. Keep Kelmarsh separate. Confirm the target protocol using evidence.
+4. Execute the strict forecast and February replay. Add actuals only if real February
+   generation is delivered; absent actuals leave accuracy metrics null.
 
 ```bash
-python -m pytest -q
 python scripts/run_target_forecast.py --check
-# FORECAST_ORIGIN must be the confirmed aware timestamp:
-python scripts/run_target_forecast.py --origin "$FORECAST_ORIGIN" --horizon 48 --output results/target.json
+python scripts/run_target_forecast.py --origin 2026-01-31T23:00:00+05:00 --horizon 48 --output results/target.json
 python scripts/replay_february.py --horizon 48 --output-dir results/february
-# Add --actuals only once organizer February facts are available.
 ```
 
-5. Check real-source time availability independently. Fixtures do not establish archive validity.
-   Record numeric coverage and real failures. Keep overlapping origins. Missing actuals leave metrics null.
-6. Smoke-test the UI. Optional `--with-agent` requires configured OpenAI key/model, and must preserve numbers.
-7. Commit substantive progress and push to the team repository at least hourly during the hackathon.
-   Merge reviewed/tested integration into main. Never publish fabricated target forecasts or quality claims.
-
-Current reproducible blocked attempts and empty delivery CSVs are in `reports/target-acceptance/`.
-See [TARGET_ACCEPTANCE.md](TARGET_ACCEPTANCE.md) for requirement-level verification and remaining blockers.
+No guessed source metadata, fabricated production artifacts or demo substitution enables
+this path. Current MVP evidence and working commands: [final verification](../reports/final-mvp/README.md).
