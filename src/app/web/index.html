@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1014">
+<meta name="description" content="WindAgent AI: прогноз энергии ветра, состояние данных и анализ выработки T1/T2.">
+<title>WindAgent AI — энергия в фокусе</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="ui.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#overview">К содержимому</a>
+<main class="wrap">
+  <header class="topbar">
+    <div>
+      <div class="brand"><div class="logo" aria-hidden="true"></div><div><h1>WindAgent <span>AI</span></h1><div class="sub">Интеллектуальные прогнозы для более зелёного завтра</div></div></div>
+      <div class="script">Ветер. Данные. Действие.</div>
+    </div>
+    <div class="top-right"><span class="mode-badge"><span class="dot" aria-hidden="true"></span><span id="data-status">Подключение к данным</span></span><div>HackAlem AI / Anhalt ANY</div></div>
+  </header>
+  <div class="workspace-line"><span><span class="status-light" aria-hidden="true"></span>Энергия в фокусе</span><span id="workspace-context">Goldwind GW109/2500 <i>/</i> 2 × 2,5 МВт</span></div>
+  <div class="grid">
+    <div class="left-col">
+      <section class="panel" id="overview" aria-label="Обзор ветропарка">
+        <div class="panel-head"><span class="panel-title">Обзор ветропарка</span><nav class="nav" aria-label="Разделы"><a href="#overview">Обзор</a><a href="#forecast">Прогноз</a><a href="#weather">Данные</a><a href="#agents">Агенты</a></nav></div>
+        <div class="hero">
+          <img src="assets/hero_wind.png" alt="Ветряные турбины на фоне открытого неба">
+          <div class="hero-content">
+            <div><div class="coord">Энергия ветра / WindAgent AI</div><h2>Больше чистой<br>энергии.<br><span>Меньше шума.</span></h2><p>Выработка, прогноз и состояние данных. Всё, что нужно для следующего решения.</p></div>
+            <div class="hero-bottom"><div class="hero-kpis">
+              <div class="chip"><div class="label">Энергия за период</div><div class="value"><span data-metric="energy">—</span> <small>МВт·ч</small></div></div>
+              <div class="chip"><div class="label">Средняя мощность</div><div class="value"><span data-metric="average">—</span> <small>МВт</small></div></div>
+              <div class="chip"><div class="label">Средний ветер</div><div class="value"><span data-metric="wind">—</span> <small>м/с</small></div></div>
+            </div><a class="btn" href="#forecast">Открыть прогноз <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </div>
+        <div class="metrics">
+          <div class="card"><small>Энергия за период</small><div class="metric" data-metric="energy">—</div><div class="metric-unit">МВт·ч</div><div class="metric-rule green-rule"></div></div>
+          <div class="card"><small>Средняя мощность</small><div class="metric" data-metric="average">—</div><div class="metric-unit">МВт</div><div class="metric-rule blue-rule"></div></div>
+          <div class="card"><small>Использование мощности</small><div class="metric" data-metric="capacity">—</div><div class="metric-unit">за выбранный период</div><div class="metric-rule green-rule"></div></div>
+        </div>
+        <div id="turbines-panel">
+          <div class="panel-head section-heading"><h2 class="panel-title">Турбины</h2><span class="pill">T1 + T2</span></div>
+          <div class="turbines">
+            <article class="tcard"><img src="assets/hero_wind.png" alt="Ветряная турбина T1" loading="lazy"><div class="tcontent"><div><h3>T1</h3><span class="state">Средняя мощность</span></div><div><div class="tbig"><span data-metric="t1">—</span> МВт</div><div class="muted"><span data-metric="t1-capacity">—</span> · загрузка</div></div></div></article>
+            <article class="tcard"><img src="assets/kz_steppe.png" alt="Степь Казахстана, площадка ветроэнергетики" loading="lazy"><div class="tcontent"><div><h3>T2</h3><span class="state">Средняя мощность</span></div><div><div class="tbig"><span data-metric="t2">—</span> МВт</div><div class="muted"><span data-metric="t2-capacity">—</span> · загрузка</div></div></div></article>
+          </div>
+          <div class="turbine-details"><span data-turbine-detail="T1">T1 · загрузка конфигурации</span><span data-turbine-detail="T2">T2 · загрузка конфигурации</span></div>
+        </div>
+        <section id="agents" aria-labelledby="agents-heading">
+          <div class="panel-head section-heading"><h2 class="panel-title" id="agents-heading">Агенты WindAgent</h2><span class="pill">4 этапа</span></div>
+          <div class="agent-row">
+            <div class="agent"><div class="step-icon">01</div><strong>Погода</strong><span id="step-weather">Ожидает</span></div>
+            <div class="agent"><div class="step-icon">02</div><strong>Данные</strong><span id="step-data">Ожидает</span></div>
+            <div class="agent"><div class="step-icon">03</div><strong>Прогноз</strong><span id="step-model">Ожидает</span></div>
+            <div class="agent"><div class="step-icon">04</div><strong>Проверка</strong><span id="step-check">Ожидает</span></div>
+          </div>
+          <p class="section-note" id="agent-status">После расчёта здесь появится состояние обработки данных.</p>
+        </section>
+      </section>
+      <div class="photos">
+        <article class="photo"><img src="assets/kz_mountains.png" alt="Горы Казахстана" loading="lazy"><div class="text"><span class="eyebrow">Природа Казахстана</span><h3>Сила пространства</h3><p>Горизонты для чистой энергии.</p></div></article>
+        <article class="photo"><img src="assets/kz_flowers.png" alt="Цветущая степь Казахстана" loading="lazy"><div class="text"><span class="eyebrow">Зелёное завтра</span><h3>Энергия перемен</h3><p>Технологии в ритме природы.</p></div></article>
+      </div>
+    </div>
+    <div class="right-col">
+      <section class="panel" id="forecast" aria-label="Прогноз выработки">
+        <div class="panel-head"><h2 class="panel-title" id="forecast-heading">Прогноз выработки</h2><span class="pill" id="mode-label">ВЭС T1/T2</span></div>
+        <div class="run-form">
+          <label class="field-label">Источник расчёта<select id="data-mode"><option value="target">Прогноз ВЭС T1/T2</option><option value="demo">Синтетическое демо</option><option value="observed">Реальные данные Kelmarsh</option></select></label>
+          <p id="mode-description" class="form-hint">Прогноз обеих турбин по архивным выпускам погоды. Доступность данных проверяется перед расчётом.</p>
+          <div data-mode-field="target"><label class="field-label">Момент запуска, ISO 8601 с часовым поясом<input id="origin" type="text" value="2026-01-31T23:00:00+00:00" spellcheck="false" autocomplete="off"></label><p class="form-hint">Время указано как пример. Используйте согласованное расписание станции.</p></div>
+          <div data-mode-field="date" hidden><label class="field-label">Дата, UTC<input id="forecast-date" type="date" value="2026-02-10"></label></div>
+          <div data-mode-field="observed" hidden><label class="field-label">Турбина Kelmarsh<select id="observed-turbine"><option value="Kelmarsh 1">Kelmarsh 1</option></select></label></div>
+          <div class="control-pair"><label class="field-label">Горизонт<select id="horizon"><option value="24">24 часа</option><option value="48">48 часов</option></select></label><label class="field-label" data-mode-field="forecast">Показать на графике<select id="turbine-filter"><option value="all">T1 + T2</option><option value="T1">Турбина T1</option><option value="T2">Турбина T2</option></select></label></div>
+          <div class="run-actions"><button id="run-forecast" class="primary-button" disabled>Рассчитать прогноз <span aria-hidden="true">↗</span></button><button id="refresh-readiness" class="secondary-button" title="Обновить проверку доступности данных">Проверить данные</button></div>
+          <div id="readiness-panel" class="readiness-panel" hidden><div class="readiness-heading"><span class="status-light amber" aria-hidden="true"></span><strong>Для прогноза нужны данные</strong></div><details><summary>Что нужно подключить</summary><ul id="blockers"></ul></details><p>Синтетическое демо доступно в выборе источника расчёта.</p></div>
+          <p id="request-error" class="request-error" role="alert" hidden></p>
+          <p id="run-status" class="form-hint" role="status">Проверяем подключение…</p>
+        </div>
+        <div class="forecast-top"><div class="card soft-green"><small>Энергия за период</small><div class="metric" data-metric="energy">—</div><div class="unit-label">МВт·ч</div></div><div class="card soft-blue"><small>Средняя мощность</small><div class="metric" data-metric="average">—</div><div class="unit-label">МВт</div></div></div>
+        <div class="chart-card"><div class="chart-box"><div class="chart-heading"><span class="muted">Мощность, МВт</span><div class="legend" id="series-legend"></div></div><div class="chart-wrap" id="forecast-chart"><div class="empty-chart"><span class="empty-chart-icon" aria-hidden="true">↗</span><strong>От данных — к прогнозу</strong><span>Выберите источник и запустите расчёт.</span></div></div><div id="chart-detail" class="chart-detail" aria-live="polite">Почасовой прогноз появится после расчёта.</div></div><p id="chart-note" class="form-hint"></p></div>
+        <div class="result-meta"><span id="date-range">Период не рассчитан</span><div class="export-actions"><button id="export-forecast" class="icon-button" disabled>↓ CSV</button><button id="export-json" class="icon-button" disabled>↓ JSON</button></div></div>
+        <div class="conf"><div class="conf-box"><span class="section-eyebrow">Качество данных</span><div class="coverage-line"><div class="score" data-metric="valid-hours">—</div><span class="muted">валидных часов<br>за выбранный период</span></div><p id="confidence-note" class="form-hint">Надёжность оценивается по полноте входных данных и проверкам модели.</p></div></div>
+        <div id="observed-metrics" class="observed-metrics" hidden></div>
+      </section>
+      <section class="panel" id="weather" aria-label="Погода и аналитика">
+        <div class="panel-head"><h2 class="panel-title">Данные и аналитика</h2><span class="pill">Происхождение данных</span></div>
+        <div class="map"><img src="assets/kz_mountains.png" alt="Горный пейзаж Казахстана" loading="lazy"><div class="map-top"><div class="map-pill">Ветер / Энергия / Данные</div></div><div class="location-caption"><span>Движение к чистой энергии</span><strong>Ветер задаёт направление.</strong><small>Природа Казахстана · фотографии из дизайн-макета</small></div></div>
+        <div class="conditions"><div class="cond"><div class="muted">Средний ветер</div><div class="v"><span data-metric="wind">—</span> <small>м/с</small></div><div class="muted">по входным данным</div></div><div class="cond"><div class="muted">Максимальный ветер</div><div class="v"><span data-metric="max-wind">—</span> <small>м/с</small></div><div class="muted">за выбранный период</div></div></div>
+        <div class="source-list"><div><span>Источник погоды</span><strong id="weather-source">Ожидает расчёта</strong></div><div><span>Модель</span><strong id="model-source">Ожидает расчёта</strong></div><div><span>Анализ</span><strong id="analysis-source">Ожидает расчёта</strong></div></div>
+        <div class="alerts"><div class="alert neutral"><strong>Что показывают данные</strong><p id="analysis-summary">Результаты и флаги проверки появятся после расчёта.</p></div><div class="reco"><strong>Рекомендация агента</strong><p id="analysis-recommendation">Выберите доступный источник, дату и горизонт прогноза.</p></div></div>
+        <details class="technical-details"><summary>Подробности расчёта</summary><p id="run-results">Расчёт ещё не запущен.</p></details>
+      </section>
+    </div>
+  </div>
+  <footer class="footer"><span>WindAgent AI <span class="muted">/ Ветер. Данные. Действие.</span></span><span>HackAlem AI 2026 · Anhalt ANY</span></footer>
+  <div id="interaction-status" class="sr-only" role="status"></div>
+  <noscript><div class="request-error">Для работы с графиками и прогнозом включите JavaScript в браузере.</div></noscript>
+</main>
+</body>
+</html>
