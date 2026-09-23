@@ -1,5 +1,13 @@
 # HackAlem AI Energy Agent — ML layer
 
+## Goldwind T1/T2: обучение подготовлено, финальной модели пока нет
+
+`src.ml.goldwind_provider` — отдельный провайдер raw кВт для T1/T2. Полученные почасовые
+CSV требуют подтверждения времени, единиц, нормализации, покрытия и идентичности турбин.
+Команды подготовки/обучения/оценки, настройки и блокировки описаны в
+[GOLDWIND_MODEL_CONTRACT](docs/GOLDWIND_MODEL_CONTRACT.md).
+Kelmarsh ниже остаётся отдельным проверенным примером, не заменой целевой модели.
+
 ## Agent provider (Person B)
 
 `ML_MODULE=src.ml.provider`, `MODEL_PATH=models/power_model.joblib`.
