@@ -1,0 +1,23 @@
+{
+  "files": {"T1": null, "T2": null},
+  "columns": {"timestamp": null, "wind_speed": null, "temperature": null, "target": null},
+  "dataset_source": null,
+  "metadata_source": null,
+  "file_identity_source": null,
+  "timezone": null,
+  "timestamp_format": null,
+  "available_at_format": null,
+  "timestamp_label": null,
+  "interval_minutes": null,
+  "measurement_semantics": null,
+  "wind_unit": null,
+  "temperature_unit": null,
+  "target_unit": null,
+  "normalized_reference_kw": null,
+  "wind_height_m": null,
+  "availability_source": null,
+  "release_delay_minutes": null,
+  "first_forecast_origin": null,
+  "forecast_origin_source": null,
+  "minimum_hour_coverage": 1.0
+}
