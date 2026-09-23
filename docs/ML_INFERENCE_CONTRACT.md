@@ -119,3 +119,5 @@ Raw kW MAE **82.90469335**, RMSE **145.19032792**. The earlier clipped MAE 82.82
 not the agent/provider metric. Those clipped results remain available through the original API.
 These are Kelmarsh **MODE A** results only. MODE B requires genuine archived forecasts;
 neither transfer to Goldwind nor operational forecast performance has been validated.
+
+Boundary verification and merge handoff: [provider_integration_check](../reports/provider_integration_check.md).
