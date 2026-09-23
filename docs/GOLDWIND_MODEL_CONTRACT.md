@@ -1,13 +1,18 @@
 # Goldwind T1/T2 — explicit organizer dataset contract (not trained)
 
-Status, 2026-09-23: **organizer files have not been provided**. User confirmed there is only
-Kelmarsh and synthetic demo in the checked integration build. Timezone, statistical timestamp
-semantics and normalized target definition are unknown. No substitute dataset is permitted.
+Updated status, 2026-09-23: the team has received an aggregated T1/T2 CSV export
+(50,784 rows); see [delivery audit](GOLDWIND_DELIVERY_REVIEW.md). Source timezone,
+statistical timestamp semantics and normalized target definition remain unknown.
+The team has now selected the first forecast origin **2026-01-31T23:00:00+05:00**
+(18:00 UTC), then daily 23:00 Asia/Almaty, first lead 1 hour. This closes the
+C-origin decision, not the source metadata gate. See [schedule decision](FORECAST_SCHEDULE_DECISION.md).
+No substitute dataset is permitted.
 No Goldwind model has been trained; there are no Goldwind validation/forecast metrics or artifact.
 Kelmarsh files, provider and published results are unchanged and remain a separate verified example.
 
-Work starts from integration commit `be26361`; PR #2 is merged into `codex/energy-agent-mvp`,
-while MVP PR #1 is not yet merged into main. Current branch: `feature/goldwind-model`.
+Historical implementation context: B started from integration commit `be26361`
+on `feature/goldwind-model`. The following link records the original coordination;
+current schedule and received-data status are given above.
 Coordination with A/C: https://github.com/BAITC-Hacks/hack-9ccceebe-anhalt-any/pull/1#issuecomment-5793484746
 
 ## Required confirmations before parsing/aggregation
@@ -64,14 +69,16 @@ file/turbine mapping, observed interval deltas, flags and full-period coverage p
 Structural errors preserve source_rows.csv plus preparation_error.json; original files are never overwritten.
 The command refuses a nonempty output directory, preventing destruction of previous audit results.
 
-## Forecast origin / leakage gate — C confirmation still required
+## Forecast origin / leakage gate — team schedule selected
 
-`first_forecast_origin` must be an exact offset-aware timestamp; `forecast_origin_source` records C's agreement.
+`first_forecast_origin` is `2026-01-31T23:00:00+05:00`; `forecast_origin_source`
+records the user-authorized team decision. Both fields are populated in the dataset template.
 The final allowed hour satisfies both interval_end <= origin **and available_at <= origin**.
 Hour availability is the maximum availability of its constituent observations. A Jan 31 interval released after
 the first run is excluded even though its statistical date is in the historical period.
-No assumption that “trained through January 31” is sufficient. Until C confirms origin, preparation may produce
-audits but does **not** export eligible_hourly.csv or permit training. Helper `training_rows` enforces this gate.
+No assumption that “trained through January 31” is sufficient. Source semantics and
+publication latency still require evidence; choosing an origin does not certify them.
+Helper `training_rows` enforces the availability gate after the source contract is valid.
 
 ## Future target provider contract (reserved; not an existing artifact)
 
