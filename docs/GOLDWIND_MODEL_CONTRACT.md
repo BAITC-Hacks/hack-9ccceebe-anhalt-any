@@ -1,24 +1,26 @@
 # Goldwind T1/T2 — explicit organizer dataset contract (not trained)
 
-Status, 2026-09-23: **organizer files have not been provided**. User confirmed there is only
-Kelmarsh and synthetic demo in the checked integration build. Timezone, statistical timestamp
-semantics and normalized target definition are unknown. No substitute dataset is permitted.
+Status, 2026-09-23: **hourly CSVs received; authoritative semantics still unconfirmed**.
+The received export has 50,784 T1/T2 rows; see GOLDWIND_DELIVERY_REVIEW.md for its audit.
+Timezone, statistical timestamp semantics, physical turbine identity and normalized target
+definition remain unknown. No substitute dataset is permitted.
 No Goldwind model has been trained; there are no Goldwind validation/forecast metrics or artifact.
 Kelmarsh files, provider and published results are unchanged and remain a separate verified example.
 
-Work starts from integration commit `be26361`; PR #2 is merged into `codex/energy-agent-mvp`,
-while MVP PR #1 is not yet merged into main. Current branch: `feature/goldwind-model`.
+PRs #1/#2/#3 are integrated. This continuation starts from current main `c43262d`
+on `feature/goldwind-model`; main is not modified directly.
 Coordination with A/C: https://github.com/BAITC-Hacks/hack-9ccceebe-anhalt-any/pull/1#issuecomment-5793484746
 
 ## Required confirmations before parsing/aggregation
 
-Copy `config/goldwind_dataset.template.json` and fill it using organizer documentation.
+For the received mixed hourly CSV copy `config/goldwind_hourly.template.json`; for separate
+raw-interval files use `config/goldwind_dataset.template.json`. Fill using organizer documentation.
 Nulls deliberately block execution; they are not defaults to be inferred from values.
 Paths are relative to the contract JSON directory (absolute paths also accepted).
 
 | Setting | Must be confirmed |
 |---|---|
-| files | Separate exact file path for T1 and T2; no mapping by filename guess. If mixed files exist, request an explicit partition policy. |
+| files | Raw layout: separate exact T1/T2 paths. Hourly layout: files.hourly with explicit source-label → physical turbine_mapping; never guess the mapping. |
 | file_identity_source | Organizer evidence linking each file to the physical turbine. Optional mapped turbine_id column must agree. |
 | columns | Logical → physical: timestamp, wind_speed, temperature, target; optionally available_at and turbine_id. |
 | dataset_source / metadata_source | Actual organizer dataset version and document/person confirming semantics. |
@@ -73,7 +75,7 @@ the first run is excluded even though its statistical date is in the historical 
 No assumption that “trained through January 31” is sufficient. Until C confirms origin, preparation may produce
 audits but does **not** export eligible_hourly.csv or permit training. Helper `training_rows` enforces this gate.
 
-## Future target provider contract (reserved; not an existing artifact)
+## Target provider contract (implemented; real artifact still absent)
 
 ```text
 FORECAST_ML_MODULE=src.ml.goldwind_provider
@@ -82,8 +84,9 @@ FORECAST_MANIFEST_PATH=models/goldwind/forecast_manifest.json
 FORECAST_PROTOCOL_PATH=config/forecast_protocol.json
 ```
 
-These are reserved integration names; **the provider/artifact will be implemented and verified after real
-data semantics and training are available**. Do not switch production settings to these names yet.
+The provider and gated training/evaluation commands are implemented and tested with artificial
+software fixtures. **No final organizer-trained artifact exists.** Enabling the module alone
+does not establish readiness: confirmed protocol, real artifact/manifest and eligible weather are required.
 The target path uses `FORECAST_*`; legacy `ML_MODULE`/`MODEL_PATH` configure the separate
 demo/observed integration. See [the strict target contract](TARGET_FORECAST_CONTRACT.md)
 for the required protocol, manifest and acceptance checks.
@@ -92,12 +95,12 @@ for the required protocol, manifest and acceptance checks.
 - Unique timezone-aware hourly DatetimeIndex labels interval starts; UTC canonical; no sorting/dropping/reordering.
 - Explicit `features.attrs['turbine_id']` = T1 or T2 and `wind_height_m` matching confirmed model training schema.
 - Missing/nonfinite feature rows are filtered/flagged upstream by C; provider rejects them rather than imputing silently.
-- Wind direction is not required. Calendar cycles and turbine encoding will be saved inside the ML pipeline.
+- Wind direction is not required. Calendar cycles and train-fitted turbine encoding are saved inside the ML pipeline.
 - `load_model(path)` loads without fit; `predict(model, features)` returns raw 1D kW array of input length.
 - No hidden clipping, default turbine, Kelmarsh mapping or unconfirmed normalized-to-kW conversion.
 - A forecast-vs-measured-weather distribution shift must be recorded. MODE A validation is not MODE B forecast quality.
 
-The future artifact must include `forecast_manifest.json` conforming to `ModelManifest`:
+The training command writes `forecast_manifest.json` conforming to `ModelManifest`:
 artifact SHA256, organizer provenance, explicit T1/T2 capacities and feature heights,
 feature schema, raw kW output, normalized target definition, confirmed timezone and hourly
 intervals. Record training and model-selection availability cutoffs **and** their target
@@ -106,25 +109,49 @@ All must precede the first run under the confirmed `forecast_protocol.json` sche
 The preparation contract's `first_forecast_origin` must match that schedule. Source sensor
 height may differ from hub height; the deployed schema must match the strict 80 m weather
 contract after an explicitly agreed and documented transformation. No manifest or provider
-is generated by this preparation-only command.
+is generated by the preparation-only command; `train_goldwind` generates both after confirmed training.
 
 ## Commands and next steps
 
 After receiving actual files **and confirmed metadata**, fill a contract then run:
 
 ```powershell
-python -m scripts.prepare_goldwind --contract config/goldwind_dataset.confirmed.json --output data/goldwind/prepared
-python -m pytest tests/test_goldwind_data.py -q
+python -m scripts.prepare_goldwind --contract config/goldwind_hourly.confirmed.json --output data/goldwind/prepared
+python -m scripts.train_goldwind --contract config/goldwind_hourly.confirmed.json --output models/goldwind
+python -m scripts.evaluate_goldwind --contract config/goldwind_hourly.confirmed.json --model models/goldwind/power_model.joblib
+python -m pytest tests/test_goldwind_data.py tests/test_goldwind_model.py -q
 ```
 
-`goldwind_dataset.confirmed.json` is not supplied because its values are unknown; use the template as a checklist.
+`goldwind_hourly.confirmed.json` is not supplied because its values are unknown; use the template as a checklist.
 The template itself must fail with a list of missing confirmations. CSV/Parquet are supported; no second weather
 downloader and no automatic download of another station is added. For Parquet install an existing pandas engine
 only if required by actual files.
 
-Next, once data and origin are confirmed: inspect real EDA/coverage, agree any needed source-specific parser,
-train mean baseline and sklearn HistGradientBoosting using past→future splits entirely before February,
-verify availability cutoffs for every training/validation run, save a separate artifact with schema/units,
-cutoffs/dependency versions and metrics, implement the reserved adapter and test reload/order/raw kW.
-No training CLI or metrics are claimed in this preparation-only PR. Estimated first artifact: 1–2 hours after
-receipt of usable documented files and C's origin confirmation; source cleanup may change that estimate.
+## Hourly export, training and evaluation safeguards
+
+- `input_layout=hourly_aggregates` requires turbine_mapping, aggregation_source, coverage_source,
+  source_interval_minutes and a sample_count column. Confirm sample_count counts distinct valid,
+  nonoverlapping interval means; count=6 alone is not independent coverage evidence.
+- For a confirmed 10-minute source, counts 0–6 imply 0–60 observed minutes. Only 6 is complete.
+  Negative, fractional, missing or overfull counts fail. Partial means remain audit-only;
+  their energy uses observed minutes. Unknown source aggregation blocks this conversion.
+- Only mapped weather/target columns enter training. The supplied lag/rolling feature CSV is ignored.
+- Both turbines share a model with train-fitted turbine encoding. Mean baseline and sklearn
+  HistGradientBoosting (250 iterations, random_state=42, no random early-stopping holdout)
+  compete on raw validation RMSE. No tuning or per-turbine architecture search is performed.
+- Unique timestamps split 70/15/15. Purge training data unavailable at validation start and
+  validation data unavailable at test start. All stages must precede the confirmed first origin.
+  February 2026 is excluded. The winning artifact stays fitted on train only; no post-test refit.
+- Source target converts to raw kW using confirmed units before fit. Inference already returns kW:
+  no scaling by 2500 inside the provider, and no clipping. Original source target stays in audit.
+- Artifact stores contract, source hashes, cutoffs, pipeline, selected parameters, baseline comparison,
+  MAE/RMSE/R², normalized MAE/NRMSE and library versions. Manifest selection cutoff conservatively
+  includes the untouched test period as well. Reload evaluation requires identical source hashes
+  and contract and does not fit; reports errors by turbine, wind range and month.
+- Each bundle must use an empty destination. No overwrite of Kelmarsh, source CSVs or earlier bundles.
+- February facts are needed for February MAE/RMSE, not for emitting a forecast. If organizer facts
+  are hidden, those metrics remain unknown; validation on observed weather remains MODE A only.
+
+Next step: obtain authoritative definitions, inspect real eligible coverage/EDA, confirm origin with C,
+then run these commands on real files. Estimated first artifact: 1–2 hours after usable definitions and
+C's origin agreement, subject to source quality. Software-fixture test metrics are never station metrics.
