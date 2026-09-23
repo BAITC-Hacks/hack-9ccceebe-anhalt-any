@@ -10,3 +10,6 @@ __pycache__/
 data/cache/
 results/
 *.egg-info/
+venv/
+data/raw/**/*.zip
+*.part

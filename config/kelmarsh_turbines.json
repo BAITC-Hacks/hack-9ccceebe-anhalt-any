@@ -1,0 +1,56 @@
+{
+  "Kelmarsh 1": {
+    "latitude": 52.400604,
+    "longitude": -0.947133,
+    "rated_power_kw": 2050.0,
+    "hub_height_m": 78.5,
+    "model_name": "Senvion MM92",
+    "cut_in_ms": 3.0,
+    "cut_out_ms": 25.0
+  },
+  "Kelmarsh 2": {
+    "latitude": 52.402551,
+    "longitude": -0.949527,
+    "rated_power_kw": 2050.0,
+    "hub_height_m": 78.5,
+    "model_name": "Senvion MM92",
+    "cut_in_ms": 3.0,
+    "cut_out_ms": 25.0
+  },
+  "Kelmarsh 3": {
+    "latitude": 52.403834,
+    "longitude": -0.94419,
+    "rated_power_kw": 2050.0,
+    "hub_height_m": 68.5,
+    "model_name": "Senvion MM92",
+    "cut_in_ms": 3.0,
+    "cut_out_ms": 25.0
+  },
+  "Kelmarsh 4": {
+    "latitude": 52.398781,
+    "longitude": -0.94115,
+    "rated_power_kw": 2050.0,
+    "hub_height_m": 78.5,
+    "model_name": "Senvion MM92",
+    "cut_in_ms": 3.0,
+    "cut_out_ms": 25.0
+  },
+  "Kelmarsh 5": {
+    "latitude": 52.402308,
+    "longitude": -0.940537,
+    "rated_power_kw": 2050.0,
+    "hub_height_m": 78.5,
+    "model_name": "Senvion MM92",
+    "cut_in_ms": 3.0,
+    "cut_out_ms": 25.0
+  },
+  "Kelmarsh 6": {
+    "latitude": 52.400687,
+    "longitude": -0.936093,
+    "rated_power_kw": 2050.0,
+    "hub_height_m": 68.5,
+    "model_name": "Senvion MM92",
+    "cut_in_ms": 3.0,
+    "cut_out_ms": 25.0
+  }
+}

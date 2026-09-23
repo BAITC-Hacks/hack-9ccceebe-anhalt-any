@@ -47,7 +47,7 @@ class Statistics(Schema):
     min_power_kw: float | None
     max_power_kw: float | None
     predicted_energy_kwh: float | None
-    valid_hours: int
+    valid_hours: float
     requested_hours: int
 
 
@@ -68,3 +68,41 @@ class ForecastResult(Schema):
 
 class ForecastError(RuntimeError):
     """Expected, user-facing pipeline failure without raw provider payloads."""
+
+
+class ObservedRequest(Schema):
+    turbine_id: str = Field(min_length=1, max_length=80)
+    observation_date: date
+    horizon_h: int = Field(default=24, ge=1, le=72, strict=True)
+
+
+class ObservedPoint(HourlyPoint):
+    actual_power_kw: float | None
+
+
+class ObservedMetrics(Schema):
+    matched_samples: int
+    expected_samples: int
+    coverage: float
+    mae_kw: float | None
+    rmse_kw: float | None
+    bias_kw: float | None
+
+
+class ObservedResult(Schema):
+    request: ObservedRequest
+    mode: Literal["observed_scada"] = "observed_scada"
+    demo: Literal[False] = False
+    source: str
+    model_id: str
+    sampling_interval_minutes: Literal[10] = 10
+    hub_height_m: float
+    status: Literal["ok", "partial", "invalid"]
+    statistics: Statistics
+    metrics: ObservedMetrics
+    samples: list[ObservedPoint]
+    anomalies: list[Anomaly]
+    analysis: Analysis
+    analysis_source: Literal["openai", "deterministic"]
+    analysis_reason: str
+    limitation: str

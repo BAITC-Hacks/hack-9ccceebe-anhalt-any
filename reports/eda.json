@@ -1,0 +1,174 @@
+{
+  "observations": 311564,
+  "start": "2017-01-01T00:00:00+00:00",
+  "end": "2017-12-31T23:50:00+00:00",
+  "timestamp_storage": "UTC",
+  "feature_timezone": "UTC",
+  "turbine_count": 6,
+  "sampling": {
+    "Kelmarsh 1": {
+      "observations": 51932,
+      "median_interval_seconds": 600.0,
+      "interval_counts": {
+        "600.0": 51904,
+        "1200.0": 9,
+        "3600.0": 3,
+        "1800.0": 2,
+        "42600.0": 1,
+        "17400.0": 1,
+        "18600.0": 1,
+        "39000.0": 1,
+        "4200.0": 1,
+        "24000.0": 1
+      }
+    },
+    "Kelmarsh 2": {
+      "observations": 52045,
+      "median_interval_seconds": 600.0,
+      "interval_counts": {
+        "600.0": 52025,
+        "1200.0": 4,
+        "3600.0": 2,
+        "1800.0": 2,
+        "12600.0": 1,
+        "42600.0": 1,
+        "4200.0": 1,
+        "96600.0": 1,
+        "44400.0": 1,
+        "21000.0": 1
+      }
+    },
+    "Kelmarsh 3": {
+      "observations": 52008,
+      "median_interval_seconds": 600.0,
+      "interval_counts": {
+        "600.0": 51984,
+        "1200.0": 5,
+        "3600.0": 3,
+        "2400.0": 2,
+        "1800.0": 2,
+        "12600.0": 1,
+        "4200.0": 1,
+        "42600.0": 1,
+        "23400.0": 1,
+        "17400.0": 1
+      }
+    },
+    "Kelmarsh 4": {
+      "observations": 52015,
+      "median_interval_seconds": 600.0,
+      "interval_counts": {
+        "600.0": 51985,
+        "1200.0": 10,
+        "3600.0": 3,
+        "46800.0": 2,
+        "2400.0": 2,
+        "1800.0": 2,
+        "12600.0": 1,
+        "42600.0": 1,
+        "18600.0": 1,
+        "17400.0": 1
+      }
+    },
+    "Kelmarsh 5": {
+      "observations": 52022,
+      "median_interval_seconds": 600.0,
+      "interval_counts": {
+        "600.0": 51988,
+        "1200.0": 15,
+        "1800.0": 5,
+        "42600.0": 1,
+        "17400.0": 1,
+        "37800.0": 1,
+        "46200.0": 1,
+        "50400.0": 1,
+        "30000.0": 1,
+        "5400.0": 1
+      }
+    },
+    "Kelmarsh 6": {
+      "observations": 51542,
+      "median_interval_seconds": 600.0,
+      "interval_counts": {
+        "600.0": 51507,
+        "1200.0": 10,
+        "3000.0": 3,
+        "2400.0": 2,
+        "1800.0": 2,
+        "3600.0": 2,
+        "5400.0": 2,
+        "42600.0": 1,
+        "9600.0": 1,
+        "17400.0": 1
+      }
+    }
+  },
+  "missing": {
+    "timestamp": 0,
+    "wind_speed": 0,
+    "wind_direction": 0,
+    "power": 0,
+    "temperature": 0,
+    "turbine_id": 0,
+    "rated_power": 0
+  },
+  "distributions": {
+    "wind_speed": {
+      "count": 311564.0,
+      "mean": 6.244617828446364,
+      "std": 2.594114317510704,
+      "min": 0.0,
+      "1%": 1.050477410554886,
+      "5%": 2.338202977180481,
+      "50%": 6.079951763153076,
+      "95%": 10.781250524520873,
+      "99%": 13.074939737319943,
+      "max": 24.855093002319336
+    },
+    "temperature": {
+      "count": 311564.0,
+      "mean": 11.41531348016526,
+      "std": 5.641048423553268,
+      "min": -3.375,
+      "1%": 0.3149999976158142,
+      "5%": 2.304999828338623,
+      "50%": 11.447500228881836,
+      "95%": 20.58500099182129,
+      "99%": 25.44092502593993,
+      "max": 33.522499084472656
+    },
+    "power": {
+      "count": 311564.0,
+      "mean": 623.7341023703272,
+      "std": 596.4504019548895,
+      "min": -16.769657135009766,
+      "1%": -3.953058929443359,
+      "5%": -1.4980679750442505,
+      "50%": 428.01695251464844,
+      "95%": 1937.313342285156,
+      "99%": 2051.066403808594,
+      "max": 2081.48779296875
+    }
+  },
+  "quality": {
+    "rows_loaded": 311564,
+    "missing": {
+      "timestamp": 0,
+      "wind_speed": 0,
+      "wind_direction": 0,
+      "power": 0,
+      "temperature": 0,
+      "turbine_id": 0,
+      "rated_power": 0
+    },
+    "invalid_wind_speed": 0,
+    "suspicious_wind_above_60": 0,
+    "suspicious_temperature": 0,
+    "negative_power": 28014,
+    "directions_wrapped": 0,
+    "exact_duplicates_removed": 0,
+    "target_below_zero": 28014,
+    "target_above_nominal": 3400
+  },
+  "interpretation": "Descriptive full-dataset EDA, not used for model selection. No automatic outlier removal. SCADA operating status and turbine specifications needed to confirm cut-in/rated/cut-out regions."
+}

@@ -1,0 +1,12 @@
+{
+  "columns": {},
+  "timezone": "UTC",
+  "wind_speed_unit": "m/s",
+  "temperature_unit": "C",
+  "power_unit": null,
+  "target_source": null,
+  "weather_source": "unspecified",
+  "rated_power_verified": false,
+  "mode": "A",
+  "reports_dir": "reports"
+}

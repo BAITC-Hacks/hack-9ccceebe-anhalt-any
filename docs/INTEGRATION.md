@@ -25,3 +25,8 @@ python scripts/run_backtest.py --turbine T1 --actuals data/actuals.csv
 Outstanding external dependencies: Person A weather API adapter, Person B real trained model,
 actual generation, training/validation metadata, verified turbine cut-in/cut-out thresholds,
 OpenAI credentials and a model available to the team's account.
+
+
+Integration progress: Person B's `ml-model-mode-a` through abc7060 is merged into the MVP
+with common-file conflicts resolved, authoritative context forwarding and a separate native
+Kelmarsh MODE A UI/CLI/API path. Real weather A and validated Goldwind model transfer remain pending.

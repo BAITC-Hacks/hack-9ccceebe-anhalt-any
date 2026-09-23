@@ -49,6 +49,8 @@ def run_forecast(turbine_id, forecast_date, horizon_h=24, latitude=None, longitu
         raise ForecastError("Feature builder returned empty features")
     if not features.index.equals(weather.index) or features.columns.has_duplicates:
         raise ForecastError("Features must preserve the weather index and have unique columns")
+    features.attrs["turbine_id"] = request.turbine_id
+    features.attrs["wind_height_m"] = weather.attrs["wind_height_m"]
     try:
         usable = np.isfinite(features.to_numpy(dtype=float)).all(axis=1)
     except (ValueError, TypeError) as exc:

@@ -1,0 +1,201 @@
+{
+  "source": "https://zenodo.org/records/16807551",
+  "doi": "10.5281/zenodo.16807551",
+  "creators": [
+    "Charlie Plumley",
+    "Roberta Takeuchi"
+  ],
+  "publisher": "Cubico Sustainable Investments Ltd / Zenodo",
+  "license": "CC-BY-4.0",
+  "archive_md5": "c78263ee52ee0e48e2cb4bbaa1ba211a",
+  "rows_raw": 315360,
+  "rows_retained": 311564,
+  "rows_excluded": 3796,
+  "missing_before": {
+    "timestamp": 0,
+    "wind_speed": 3796,
+    "wind_direction": 3587,
+    "power": 3587,
+    "temperature": 3587,
+    "turbine_id": 0,
+    "rated_power": 0
+  },
+  "missing_after": {
+    "timestamp": 0,
+    "wind_speed": 0,
+    "wind_direction": 0,
+    "power": 0,
+    "temperature": 0,
+    "turbine_id": 0,
+    "rated_power": 0
+  },
+  "negative_power_retained": 28014,
+  "above_rated_power_retained": 3400,
+  "start": "2017-01-01T00:00:00+00:00",
+  "end": "2017-12-31T23:50:00+00:00",
+  "turbines": [
+    "Kelmarsh 1",
+    "Kelmarsh 2",
+    "Kelmarsh 3",
+    "Kelmarsh 4",
+    "Kelmarsh 5",
+    "Kelmarsh 6"
+  ],
+  "rated_power_kw": {
+    "Kelmarsh 1": 2050,
+    "Kelmarsh 2": 2050,
+    "Kelmarsh 3": 2050,
+    "Kelmarsh 4": 2050,
+    "Kelmarsh 5": 2050,
+    "Kelmarsh 6": 2050
+  },
+  "interval_seconds_mode": [
+    600.0
+  ],
+  "holdout_start": "2017-11-07T13:10:00+00:00",
+  "columns": [
+    "timestamp",
+    "wind_speed",
+    "wind_direction",
+    "power",
+    "temperature",
+    "turbine_id",
+    "rated_power"
+  ],
+  "files": [
+    {
+      "member": "Turbine_Data_Kelmarsh_1_2017-01-01_-_2018-01-01_228.csv",
+      "rows": 52560,
+      "mapping": {
+        "# Date and time": "timestamp",
+        "Wind speed (m/s)": "wind_speed",
+        "Power (kW)": "power",
+        "Wind direction (°)": "wind_direction",
+        "Nacelle ambient temperature (°C)": "temperature"
+      },
+      "preamble": [
+        "# This file was exported by Greenbyte at 2022-01-27 12:21:13. Please see https://www.greenbyte.com for more information about Greenbyte.",
+        "#",
+        "# Turbine: Kelmarsh 1",
+        "# Turbine type: Senvion MM92",
+        "# Time zone: UTC",
+        "# Time interval: 2017-01-01 00:00:00 - 2018-01-01 00:00:00 (365 days)",
+        "#",
+        "# Data that is missing or is erroneous has been marked with the value \"NaN\"",
+        "#"
+      ]
+    },
+    {
+      "member": "Turbine_Data_Kelmarsh_2_2017-01-01_-_2018-01-01_229.csv",
+      "rows": 52560,
+      "mapping": {
+        "# Date and time": "timestamp",
+        "Wind speed (m/s)": "wind_speed",
+        "Power (kW)": "power",
+        "Wind direction (°)": "wind_direction",
+        "Nacelle ambient temperature (°C)": "temperature"
+      },
+      "preamble": [
+        "# This file was exported by Greenbyte at 2022-01-27 12:39:28. Please see https://www.greenbyte.com for more information about Greenbyte.",
+        "#",
+        "# Turbine: Kelmarsh 2",
+        "# Turbine type: Senvion MM92",
+        "# Time zone: UTC",
+        "# Time interval: 2017-01-01 00:00:00 - 2018-01-01 00:00:00 (365 days)",
+        "#",
+        "# Data that is missing or is erroneous has been marked with the value \"NaN\"",
+        "#"
+      ]
+    },
+    {
+      "member": "Turbine_Data_Kelmarsh_3_2017-01-01_-_2018-01-01_230.csv",
+      "rows": 52560,
+      "mapping": {
+        "# Date and time": "timestamp",
+        "Wind speed (m/s)": "wind_speed",
+        "Power (kW)": "power",
+        "Wind direction (°)": "wind_direction",
+        "Nacelle ambient temperature (°C)": "temperature"
+      },
+      "preamble": [
+        "# This file was exported by Greenbyte at 2022-01-27 12:57:54. Please see https://www.greenbyte.com for more information about Greenbyte.",
+        "#",
+        "# Turbine: Kelmarsh 3",
+        "# Turbine type: Senvion MM92",
+        "# Time zone: UTC",
+        "# Time interval: 2017-01-01 00:00:00 - 2018-01-01 00:00:00 (365 days)",
+        "#",
+        "# Data that is missing or is erroneous has been marked with the value \"NaN\"",
+        "#"
+      ]
+    },
+    {
+      "member": "Turbine_Data_Kelmarsh_4_2017-01-01_-_2018-01-01_231.csv",
+      "rows": 52560,
+      "mapping": {
+        "# Date and time": "timestamp",
+        "Wind speed (m/s)": "wind_speed",
+        "Power (kW)": "power",
+        "Wind direction (°)": "wind_direction",
+        "Nacelle ambient temperature (°C)": "temperature"
+      },
+      "preamble": [
+        "# This file was exported by Greenbyte at 2022-01-27 13:16:35. Please see https://www.greenbyte.com for more information about Greenbyte.",
+        "#",
+        "# Turbine: Kelmarsh 4",
+        "# Turbine type: Senvion MM92",
+        "# Time zone: UTC",
+        "# Time interval: 2017-01-01 00:00:00 - 2018-01-01 00:00:00 (365 days)",
+        "#",
+        "# Data that is missing or is erroneous has been marked with the value \"NaN\"",
+        "#"
+      ]
+    },
+    {
+      "member": "Turbine_Data_Kelmarsh_5_2017-01-01_-_2018-01-01_232.csv",
+      "rows": 52560,
+      "mapping": {
+        "# Date and time": "timestamp",
+        "Wind speed (m/s)": "wind_speed",
+        "Power (kW)": "power",
+        "Wind direction (°)": "wind_direction",
+        "Nacelle ambient temperature (°C)": "temperature"
+      },
+      "preamble": [
+        "# This file was exported by Greenbyte at 2022-01-27 13:35:29. Please see https://www.greenbyte.com for more information about Greenbyte.",
+        "#",
+        "# Turbine: Kelmarsh 5",
+        "# Turbine type: Senvion MM92",
+        "# Time zone: UTC",
+        "# Time interval: 2017-01-01 00:00:00 - 2018-01-01 00:00:00 (365 days)",
+        "#",
+        "# Data that is missing or is erroneous has been marked with the value \"NaN\"",
+        "#"
+      ]
+    },
+    {
+      "member": "Turbine_Data_Kelmarsh_6_2017-01-01_-_2018-01-01_233.csv",
+      "rows": 52560,
+      "mapping": {
+        "# Date and time": "timestamp",
+        "Wind speed (m/s)": "wind_speed",
+        "Power (kW)": "power",
+        "Wind direction (°)": "wind_direction",
+        "Nacelle ambient temperature (°C)": "temperature"
+      },
+      "preamble": [
+        "# This file was exported by Greenbyte at 2022-01-27 13:53:27. Please see https://www.greenbyte.com for more information about Greenbyte.",
+        "#",
+        "# Turbine: Kelmarsh 6",
+        "# Turbine type: Senvion MM92",
+        "# Time zone: UTC",
+        "# Time interval: 2017-01-01 00:00:00 - 2018-01-01 00:00:00 (365 days)",
+        "#",
+        "# Data that is missing or is erroneous has been marked with the value \"NaN\"",
+        "#"
+      ]
+    }
+  ],
+  "unit_note": "Measurement header explicitly specifies Power (kW). Separate signal mapping lists kWh for Power; this inconsistency is retained in raw metadata. We use actual measurement header units, not Energy Export or Potential power.",
+  "processing": "Select observed weather and actual Power only; label turbine from file metadata; UTC timestamps. Exclude missing/nonfinite power or wind and negative wind; save every excluded row. No interpolation, resampling, outlier/curtailment or negative-power removal. Holdout is a copy of chronological last 15%, not a second independent dataset."
+}

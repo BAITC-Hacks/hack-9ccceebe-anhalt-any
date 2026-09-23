@@ -1,0 +1,4 @@
+[
+  {"timestamp":"2026-01-01T00:00:00Z","issued_at":"2025-12-31T18:00:00Z","turbine_id":"T1","wind_speed":6.2,"wind_direction":359,"temperature":-4.0},
+  {"timestamp":"2026-01-01T01:00:00Z","issued_at":"2025-12-31T18:00:00Z","turbine_id":"T1","wind_speed":7.1,"wind_direction":1,"temperature":-3.5}
+]

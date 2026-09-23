@@ -18,3 +18,15 @@ def forecast(request: ForecastRequest, with_agent: bool = False):
         return run_forecast(**request.model_dump(), settings=Settings.from_env(), with_agent=with_agent)
     except ForecastError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+from src.agent.observed import run_observed_analysis
+from src.agent.schemas import ObservedRequest, ObservedResult
+
+
+@app.post("/observed", response_model=ObservedResult)
+def observed_analysis(request: ObservedRequest, with_agent: bool = False):
+    try:
+        return run_observed_analysis(**request.model_dump(), with_agent=with_agent)
+    except ForecastError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc

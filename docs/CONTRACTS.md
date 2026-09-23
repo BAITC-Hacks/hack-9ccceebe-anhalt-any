@@ -103,3 +103,25 @@ Timestamps must include timezone and mark hourly interval starts; actual power i
 Unique `(turbine_id,timestamp)` rows; values finite and nonnegative. Missing rows are allowed,
 but never forward-filled or treated as zero. Backtest joins by both keys, reports match coverage,
 and computes MAE, RMSE, bias only on valid matched points.
+
+
+## Integration update: Person B / MODE A
+
+The authoritative request turbine ID and validated weather height are now assigned to
+`features.attrs['turbine_id']` and `features.attrs['wind_height_m']` after feature building,
+before ML inference. Input attrs cannot substitute a different request turbine.
+`src.ml.provider` requires three raw numeric fields including `wind_direction_deg`;
+feature engineering is inside B's frozen pipeline. No upstream duplicate encoding.
+
+The provider strictly supports Kelmarsh 1..6. See [ML_INFERENCE_CONTRACT.md](ML_INFERENCE_CONTRACT.md).
+`run_observed_analysis` / `POST /observed` implement a separate `observed_scada` MODE A
+path on native 10-minute holdout; SCADA is never passed off as archived forecast/reanalysis.
+`Statistics.valid_hours` now supports fractional hours for incomplete native coverage;
+forecast requested horizons are still integer hours. Rules evaluate each native interval;
+`interval_jump` replaces `hourly_jump` only in 10-minute mode. Direction validity is checked
+when the column is present. MODE A raw metrics include finite physically flagged power,
+matching B, whereas forecast backtest retains its documented valid-only metric protocol.
+
+The original hourly forecast path remains unchanged in cadence and weather-kind schema.
+Do not feed averaged hourly Kelmarsh inputs into it as a substitute for native evaluation.
+The registry and dataset preserve published Kelmarsh identities, capacities and heights.
