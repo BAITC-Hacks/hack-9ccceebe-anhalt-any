@@ -1,0 +1,162 @@
+{
+  "scope": "MVP checks; synthetic demo and Kelmarsh observed are not Goldwind forecast validation",
+  "checks": [
+    {
+      "name": "demo-T1",
+      "command": "python scripts/run_forecast.py --demo --date 2026-02-10 --turbine T1 --horizon 24 --with-agent --output reports/final-mvp/demo-T1.json",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "summary": {
+        "status": "ok",
+        "weather_kind": "synthetic",
+        "analysis_source": "deterministic",
+        "analysis_reason": "openai_not_configured",
+        "hourly_rows": 24
+      }
+    },
+    {
+      "name": "demo-T2",
+      "command": "python scripts/run_forecast.py --demo --date 2026-02-10 --turbine T2 --horizon 48 --output reports/final-mvp/demo-T2.json",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "summary": {
+        "status": "ok",
+        "weather_kind": "synthetic",
+        "analysis_source": "deterministic",
+        "analysis_reason": "agent_disabled",
+        "hourly_rows": 48
+      }
+    },
+    {
+      "name": "backtest-T1",
+      "command": "python scripts/run_backtest.py --demo --turbine T1 --output-dir reports/final-mvp/backtest-T1",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "summary": {
+        "start": "2026-01-31",
+        "end": "2026-02-28",
+        "turbine_id": "T1",
+        "demo": true,
+        "days_requested": 29,
+        "days_completed": 29,
+        "failed_days": 0,
+        "expected_hours": 696,
+        "prediction_rows": 696,
+        "valid_hours": 696,
+        "matched_actual_hours": 0,
+        "actual_coverage": 0.0,
+        "mae_kw": null,
+        "rmse_kw": null,
+        "bias_kw": null,
+        "weather_kinds": [
+          "synthetic"
+        ],
+        "metrics_note": "Synthetic predictions: not a real model quality estimate.",
+        "failures": []
+      }
+    },
+    {
+      "name": "backtest-T2",
+      "command": "python scripts/run_backtest.py --demo --turbine T2 --output-dir reports/final-mvp/backtest-T2",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "summary": {
+        "start": "2026-01-31",
+        "end": "2026-02-28",
+        "turbine_id": "T2",
+        "demo": true,
+        "days_requested": 29,
+        "days_completed": 29,
+        "failed_days": 0,
+        "expected_hours": 696,
+        "prediction_rows": 696,
+        "valid_hours": 696,
+        "matched_actual_hours": 0,
+        "actual_coverage": 0.0,
+        "mae_kw": null,
+        "rmse_kw": null,
+        "bias_kw": null,
+        "weather_kinds": [
+          "synthetic"
+        ],
+        "metrics_note": "Synthetic predictions: not a real model quality estimate.",
+        "failures": []
+      }
+    },
+    {
+      "name": "observed",
+      "command": "python scripts/run_observed.py --date 2017-11-08 --turbine Kelmarsh 1 --output results/final-mvp/observed.json",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "summary": {
+        "status": "ok",
+        "mode": "observed_scada",
+        "analysis_source": "deterministic",
+        "analysis_reason": "agent_disabled",
+        "metrics": {
+          "matched_samples": 144,
+          "expected_samples": 144,
+          "coverage": 1.0,
+          "mae_kw": 51.39334478862612,
+          "rmse_kw": 71.45668974219403,
+          "bias_kw": -7.102414273847797
+        }
+      }
+    },
+    {
+      "name": "target-readiness",
+      "command": "python scripts/run_target_forecast.py --check --output reports/final-mvp/target-readiness.json",
+      "exit_code": 2,
+      "expected_exit": 2,
+      "passed": true,
+      "summary": {
+        "ready": false,
+        "blockers": [
+          "Source semantics are unconfirmed: CSV timezone, interval labels and normalized-power definition; the team execution schedule alone does not confirm them",
+          "Organizer-trained Goldwind model and availability manifest are missing"
+        ]
+      }
+    },
+    {
+      "name": "target-48h",
+      "command": "python scripts/run_target_forecast.py --origin 2026-01-31T23:00:00+05:00 --horizon 48 --output reports/final-mvp/target-48h.json",
+      "exit_code": 2,
+      "expected_exit": 2,
+      "passed": true,
+      "summary": {
+        "status": "blocked",
+        "analysis_source": "unavailable"
+      }
+    },
+    {
+      "name": "target-replay",
+      "command": "python scripts/replay_february.py --horizon 48 --output-dir results/final-mvp/target-replay",
+      "exit_code": 2,
+      "expected_exit": 2,
+      "passed": true,
+      "summary": {
+        "status": "blocked"
+      }
+    }
+  ],
+  "automated_checks": {
+    "pytest": {
+      "passed": 293,
+      "skipped": 1,
+      "warnings": 1,
+      "skip_reason": "optional LightGBM",
+      "warning": "upstream Starlette/httpx deprecation"
+    },
+    "javascript": [
+      "test_dashboard_data.cjs: passed",
+      "test_dashboard_state.cjs: passed"
+    ],
+    "pip_check": "No broken requirements found",
+    "browser": "target origin +05:00; blocked target; successful explicit demo 24h 71.4 MWh; no LLM call"
+  }
+}

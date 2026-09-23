@@ -57,8 +57,8 @@ def _manifest(settings, protocol, registry):
         raise ForecastError("Model artifact SHA256 does not match its availability manifest")
     if set(manifest.turbine_ids) != set(TURBINES):
         raise ForecastError("Target manifest must explicitly support T1 and T2")
-    if manifest.timezone != protocol.timezone:
-        raise ForecastError("Model and confirmed organizer protocol timezones disagree")
+    # Model calendar encodings use its confirmed source timezone. The execution
+    # calendar may differ; all forecast/cutoff comparisons use aware UTC instants.
     for tid, turbine in registry.items():
         if manifest.rated_power_kw.get(tid) != turbine.rated_power_kw:
             raise ForecastError("Model nominal capacity does not match target registry")
@@ -76,7 +76,7 @@ def readiness(settings: ForecastSettings | None = None) -> dict:
     try:
         protocol = load_protocol(settings)
     except Exception:
-        blockers.append("Organizer protocol is unconfirmed: timezone, daily origin hour, interval labels and normalized-power definition")
+        blockers.append("Source semantics are unconfirmed: CSV timezone, interval labels and normalized-power definition; the team execution schedule alone does not confirm them")
     try:
         registry = _registry(settings)
     except Exception:

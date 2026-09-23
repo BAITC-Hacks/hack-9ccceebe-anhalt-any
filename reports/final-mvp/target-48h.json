@@ -1,0 +1,15 @@
+{
+  "run_id": "blocked-f61b5300b6a5533ef378",
+  "forecast_origin": "2026-01-31T18:00:00+00:00",
+  "horizon_h": 48,
+  "status": "blocked",
+  "rows": [],
+  "farm_rows": [],
+  "errors": {
+    "configuration": "Source semantics are unconfirmed: CSV timezone, interval labels and normalized-power definition; the team execution schedule alone does not confirm them; Organizer-trained Goldwind model and availability manifest are missing"
+  },
+  "analysis": null,
+  "analysis_source": "unavailable",
+  "cache_hit": false,
+  "note": "No target forecasts were produced; demo/Kelmarsh substitution is forbidden"
+}

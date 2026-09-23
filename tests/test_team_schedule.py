@@ -29,9 +29,10 @@ def test_team_schedule_covers_every_february_hour(horizon):
     assert len(covered) == 672
     first = expected_times(origins[0], horizon, protocol)
     assert first[0] == start and first[-1] == start + pd.Timedelta(horizon-1, unit='h')
-    contract = json.loads((ROOT / 'config/goldwind_dataset.template.json').read_text())
-    assert pd.Timestamp(contract['first_forecast_origin']) == origins[0]
-    assert contract['forecast_origin_source'] == schedule['forecast_origin_source']
+    for name in ['goldwind_dataset.template.json', 'goldwind_hourly.template.json']:
+        contract = json.loads((ROOT / 'config' / name).read_text())
+        assert pd.Timestamp(contract['first_forecast_origin']) == origins[0]
+        assert contract['forecast_origin_source'] == schedule['forecast_origin_source']
 
 
 def test_execution_schedule_does_not_certify_raw_source_metadata():

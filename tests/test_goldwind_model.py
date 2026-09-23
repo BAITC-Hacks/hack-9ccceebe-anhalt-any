@@ -59,6 +59,48 @@ def features():
     return frame
 
 
+@pytest.mark.parametrize('horizon', [24, 48])
+def test_real_a_features_b_artifact_c_orchestrator(bundle, tmp_path, monkeypatch, horizon):
+    """Cross-module SOFTWARE integration; weather and training are artificial fixtures."""
+    from src.data import weather
+    from src.forecast.contracts import ForecastProtocol, ForecastSettings, expected_times
+    from src.forecast.orchestrator import readiness, run_target_forecast
+
+    model, _, _ = bundle
+    artifact = save_model(model, tmp_path / 'model')
+    # B's source/calendar is UTC; C's chosen execution calendar is Asia/Almaty.
+    protocol = ForecastProtocol(confirmed=True, timezone='Asia/Almaty', daily_origin_hour=23,
+                                evidence='ARTIFICIAL SOFTWARE TEST ONLY')
+    protocol_path = tmp_path / 'protocol.json'
+    protocol_path.write_text(protocol.model_dump_json())
+
+    def fixture_weather(lat, lon, origin, hours):
+        frame = pd.DataFrame({'wind_speed_ms': np.full(hours, 8.),
+                              'temperature_c': np.full(hours, 10.),
+                              'weather_issued_at': (origin-pd.Timedelta(6, unit="h")).isoformat(),
+                              'weather_available_at': (origin-pd.Timedelta(5, unit="h")).isoformat()},
+                             index=expected_times(origin, hours, protocol))
+        frame.attrs = {'kind': 'archived_forecast', 'source': 'ARTIFICIAL TEST ONLY',
+                       'wind_height_m': 80., 'availability_basis': 'publisher_timestamp',
+                       'availability_evidence': 'ARTIFICIAL TEST ONLY'}
+        return frame
+
+    monkeypatch.setattr(weather, 'get_forecast_weather', fixture_weather)
+    settings = ForecastSettings(model_path=artifact, manifest_path=artifact.parent/'forecast_manifest.json',
+                                protocol_path=protocol_path, cache_dir=tmp_path/'cache', results_dir=tmp_path/'results')
+    assert readiness(settings)['ready']
+    result = run_target_forecast('2026-01-31T23:00:00+05:00', horizon, settings=settings)
+    assert result['status'] == 'ok', result.get('errors')
+    assert len(result['farm_rows']) == horizon and len(result['rows']) == 2*horizon
+    assert result['rows'][0]['valid_time'] == '2026-01-31T19:00:00+00:00'
+    for tid in ('T1', 'T2'):
+        input_frame = weather.build_features(fixture_weather(0, 0, pd.Timestamp(result['forecast_origin']), horizon))
+        input_frame.attrs.update(turbine_id=tid, wind_height_m=80.)
+        expected = predict(model, input_frame)
+        actual = [row['power_kw'] for row in result['rows'] if row['turbine_id'] == tid]
+        np.testing.assert_allclose(actual, expected)
+
+
 def test_hourly_coverage_and_explicit_identity(tmp_path):
     frame = source()
     frame.loc[0, ["power", "count"]] = [1000., 3]

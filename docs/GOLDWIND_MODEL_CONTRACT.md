@@ -158,6 +158,6 @@ only if required by actual files.
 - February facts are needed for February MAE/RMSE, not for emitting a forecast. If organizer facts
   are hidden, those metrics remain unknown; validation on observed weather remains MODE A only.
 
-Next step: obtain authoritative definitions, inspect real eligible coverage/EDA, confirm origin with C,
+Next step: obtain authoritative definitions, inspect real eligible coverage/EDA, use the team-selected first origin,
 then run these commands on real files. Estimated first artifact: 1–2 hours after usable definitions and
 C's origin agreement, subject to source quality. Software-fixture test metrics are never station metrics.

@@ -1,0 +1,193 @@
+{
+  "request": {
+    "turbine_id": "T1",
+    "forecast_date": "2026-02-10",
+    "horizon_h": 24,
+    "latitude": null,
+    "longitude": null
+  },
+  "demo": true,
+  "weather_source": "bundled-synthetic-fixture-v1",
+  "weather_kind": "synthetic",
+  "model_id": "synthetic-random-forest-v1",
+  "status": "ok",
+  "statistics": {
+    "avg_wind_ms": 10.522616666666666,
+    "max_wind_ms": 20.0,
+    "min_power_kw": 55.09603159433312,
+    "max_power_kw": 2500.0,
+    "predicted_energy_kwh": 35721.90438514729,
+    "valid_hours": 24.0,
+    "requested_hours": 24
+  },
+  "hourly": [
+    {
+      "timestamp": "2026-02-10T00:00:00Z",
+      "wind_speed_ms": 8.408,
+      "power_kw": 828.4439344892736,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T01:00:00Z",
+      "wind_speed_ms": 8.1744,
+      "power_kw": 766.8174446920831,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T02:00:00Z",
+      "wind_speed_ms": 7.954,
+      "power_kw": 705.3405627367518,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T03:00:00Z",
+      "wind_speed_ms": 7.7674,
+      "power_kw": 646.9379219402045,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T04:00:00Z",
+      "wind_speed_ms": 7.6334,
+      "power_kw": 610.6473688833952,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T05:00:00Z",
+      "wind_speed_ms": 7.5678,
+      "power_kw": 593.5274716474232,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T06:00:00Z",
+      "wind_speed_ms": 7.5835,
+      "power_kw": 606.9289450344427,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T07:00:00Z",
+      "wind_speed_ms": 7.6886,
+      "power_kw": 626.3738906700842,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T08:00:00Z",
+      "wind_speed_ms": 7.887,
+      "power_kw": 680.8885407464594,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T09:00:00Z",
+      "wind_speed_ms": 8.1778,
+      "power_kw": 766.8174446920831,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T10:00:00Z",
+      "wind_speed_ms": 18.0,
+      "power_kw": 2500.0,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T11:00:00Z",
+      "wind_speed_ms": 4.0,
+      "power_kw": 55.09603159433312,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T12:00:00Z",
+      "wind_speed_ms": 20.0,
+      "power_kw": 2500.0,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T13:00:00Z",
+      "wind_speed_ms": 5.0,
+      "power_kw": 144.5519588729645,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T14:00:00Z",
+      "wind_speed_ms": 10.6671,
+      "power_kw": 1743.988036567898,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T15:00:00Z",
+      "wind_speed_ms": 11.2529,
+      "power_kw": 2051.0258871263677,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T16:00:00Z",
+      "wind_speed_ms": 11.8188,
+      "power_kw": 2394.5189454535252,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T17:00:00Z",
+      "wind_speed_ms": 12.3431,
+      "power_kw": 2500.0,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T18:00:00Z",
+      "wind_speed_ms": 12.806,
+      "power_kw": 2500.0,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T19:00:00Z",
+      "wind_speed_ms": 13.1899,
+      "power_kw": 2500.0,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T20:00:00Z",
+      "wind_speed_ms": 13.481,
+      "power_kw": 2500.0,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T21:00:00Z",
+      "wind_speed_ms": 13.6695,
+      "power_kw": 2500.0,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T22:00:00Z",
+      "wind_speed_ms": 13.7501,
+      "power_kw": 2500.0,
+      "valid": true
+    },
+    {
+      "timestamp": "2026-02-10T23:00:00Z",
+      "wind_speed_ms": 13.7225,
+      "power_kw": 2500.0,
+      "valid": true
+    }
+  ],
+  "anomalies": [
+    {
+      "code": "hourly_jump",
+      "severity": "medium",
+      "count": 5,
+      "timestamps": [
+        "2026-02-10T10:00:00+00:00",
+        "2026-02-10T11:00:00+00:00",
+        "2026-02-10T12:00:00+00:00"
+      ],
+      "detail": "Change over 60 minutes exceeds 50% of rated power."
+    }
+  ],
+  "analysis": {
+    "summary": "Расчёт энергии: 35721.9 кВт·ч за 24 ч.",
+    "risk_level": "medium",
+    "anomalies": [
+      "hourly_jump"
+    ],
+    "recommendation": "Проверьте отмеченные часы, единицы и входные данные перед использованием прогноза.",
+    "confidence_note": "Синтетическое демо: качество на реальных данных не оценено. Вероятностный интервал и калибровка неопределённости не предоставлены."
+  },
+  "analysis_source": "deterministic",
+  "analysis_reason": "openai_not_configured"
+}

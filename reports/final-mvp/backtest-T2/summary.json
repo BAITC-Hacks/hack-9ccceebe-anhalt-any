@@ -1,0 +1,22 @@
+{
+  "start": "2026-01-31",
+  "end": "2026-02-28",
+  "turbine_id": "T2",
+  "demo": true,
+  "days_requested": 29,
+  "days_completed": 29,
+  "failed_days": 0,
+  "expected_hours": 696,
+  "prediction_rows": 696,
+  "valid_hours": 696,
+  "matched_actual_hours": 0,
+  "actual_coverage": 0.0,
+  "mae_kw": null,
+  "rmse_kw": null,
+  "bias_kw": null,
+  "weather_kinds": [
+    "synthetic"
+  ],
+  "metrics_note": "Synthetic predictions: not a real model quality estimate.",
+  "failures": []
+}
