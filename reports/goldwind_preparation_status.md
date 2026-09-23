@@ -54,9 +54,23 @@ were then run explicitly. Agent/UI/common-backtest code is unchanged.
 
 Reserved names: `src.ml.goldwind_provider`, `models/goldwind/power_model.joblib`.
 **They do not exist yet and must not be configured in the agent.** Wind direction is not planned as required.
+The target integration uses `FORECAST_ML_MODULE`, `FORECAST_MODEL_PATH`,
+`FORECAST_MANIFEST_PATH` and `FORECAST_PROTOCOL_PATH`; legacy `ML_MODULE`/`MODEL_PATH`
+do not configure this strict path. Its required availability manifest and confirmed origin
+protocol are specified in [TARGET_FORECAST_CONTRACT.md](../docs/TARGET_FORECAST_CONTRACT.md).
+Preparation output is not that manifest: B still must publish the actual artifact hash,
+training/selection cutoffs and interval ends, schema, units, heights and provenance.
 Training measured-weather validation will be MODE A; forecast-weather deployment shift and MODE B
 accuracy require separate evidence. February 2026 will not be used for model selection.
 
 Estimate: first artifact 1–2 hours after receipt of usable documented files and C's origin agreement;
 unknown file quality may require revising this estimate. No artifact completion time can be guaranteed
 while the required organizer data is absent.
+
+
+## Integration verification by C
+
+This preparation branch was reviewed and merged into the integration branch. A reordered-index
+identity bug was fixed and covered by a regression test (29 Goldwind tests now pass).
+The full Python 3.12 integration suite passes 212 tests with one optional LightGBM skip.
+This supersedes the limited ML-only environment check above; it does not remove data/training blockers.

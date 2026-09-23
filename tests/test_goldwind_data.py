@@ -45,6 +45,21 @@ def test_hourly_mean_energy_and_full_coverage():
     assert audit.value.tolist() == original.value.tolist()
 
 
+def test_reordered_source_index_preserves_turbine_identity():
+    source = raw()
+    source.loc[source._organizer_turbine.eq("T2"), "value"] = [300., 400.]
+    # A caller may inspect/sort rows without resetting their original labels.
+    reordered = source.iloc[[2, 3, 0, 1]]
+    original = reordered.copy(deep=True)
+    audit, hourly, _ = prepare_hourly(reordered, contract())
+    assert audit.turbine_id.tolist() == ["T2", "T2", "T1", "T1"]
+    assert audit.power_kw.tolist() == [300., 400., 1000., 2000.]
+    complete = hourly.loc[hourly.complete].set_index("turbine_id")
+    assert complete.loc["T1", "power"] == 1500.
+    assert complete.loc["T2", "power"] == 350.
+    pd.testing.assert_frame_equal(reordered, original)
+
+
 def test_partial_hour_no_zero_fill_or_energy_extrapolation():
     data = raw()
     data.loc[1, "value"] = np.nan

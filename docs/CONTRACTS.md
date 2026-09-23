@@ -1,3 +1,5 @@
+> Legacy/demo contract. The official T1/T2 historical forecast uses [TARGET_FORECAST_CONTRACT.md](TARGET_FORECAST_CONTRACT.md) and FORECAST_* settings.
+
 # Integration contracts v1
 
 Modules are loaded through `DATA_MODULE` and `ML_MODULE` (Python dotted paths).

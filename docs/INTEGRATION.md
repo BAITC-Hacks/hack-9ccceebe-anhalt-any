@@ -1,32 +1,44 @@
-# Team integration checklist
+# Team integration
 
-Initial repository audit: `main` contained only README, commit `794eed5`.
-No existing datasets, dependencies, model, .gitignore or teammate branches were present.
-Work is isolated in `codex/energy-agent-mvp`.
+The official target path is specified in [TARGET_FORECAST_CONTRACT.md](TARGET_FORECAST_CONTRACT.md).
+Old `docs/CONTRACTS.md` describes legacy/demo interfaces, not historical target acceptance.
 
-1. Person A/B publish their work to team branches/PRs; provide branch names.
-2. Review their diff and artifacts for credentials, units, schema, model training cutoff,
-   dependency changes and weather provenance. Do not copy source files by hand.
-3. Use the team's chosen merge or cherry-pick workflow; do not merge unrelated branches automatically.
-   Example after reviewing a branch: `git merge --no-ff origin/<reviewed-branch>`.
-4. Set DATA_MODULE, ML_MODULE, MODEL_PATH and agreed feature schema. Update adapters if names differ.
-5. Install merged dependencies, check imports, then run:
+## Integrated work
+
+- B PR #2, `ml-model-mode-a` through `abc7060`: frozen Kelmarsh model and raw-kW adapter.
+  Kept as an independent observed-weather MODE A example, including native 10-minute data.
+- B PR #3, `feature/goldwind-model` through `e7e1f44`: organizer-data contract and hourly audit loader.
+  Reviewed and integrated; corrected turbine assignment for reordered DataFrame indices with a regression test.
+  Preparation only: target provider, trained model, organizer files and target metrics remain absent.
+- C: strict point-in-time forecasting, immutable weather/model versions, 24/48h rolling replay,
+  T1/T2/farm results, local/optional OpenAI analysis, CLI/API/UI, acceptance report and tests.
+- A: no actual archived forecast adapter delivered in the reviewed remote branches.
+
+## Next handoff
+
+1. Obtain organizer T1/T2 files and documented timezone, timestamp semantics, normalized power,
+   source wind height and data availability. Confirm `config/forecast_protocol.json`, including the
+   first Jan 31 origin; do not guess or mark confirmed to bypass readiness.
+2. A delivers the archive adapter with actual payload availability evidence, units and 80m conversion.
+3. B fills the Goldwind dataset contract, prepares/audits data, trains without using unavailable
+   intervals, and delivers a trusted target artifact/provider plus the strict availability manifest.
+   Use `FORECAST_*` variables; do not point target settings at Kelmarsh.
+4. Review A/B diffs, provenance and dependencies through Git; run the complete tests, then actual commands:
 
 ```bash
 python -m pytest -q
-python scripts/run_forecast.py --date 2026-02-10 --turbine T1 --horizon 24 --no-agent
-python scripts/run_backtest.py --turbine T1 --actuals data/actuals.csv
+python scripts/run_target_forecast.py --check
+# FORECAST_ORIGIN must be the confirmed aware timestamp:
+python scripts/run_target_forecast.py --origin "$FORECAST_ORIGIN" --horizon 48 --output results/target.json
+python scripts/replay_february.py --horizon 48 --output-dir results/february
+# Add --actuals only once organizer February facts are available.
 ```
 
-6. Run one `--with-agent` forecast only with a configured key/model; verify structured output and fallback.
-7. Smoke-test Streamlit. Review .gitignore and staged changes. Keep .env, credentials and private data out of git.
-8. Merge the reviewed integration through the team's workflow.
+5. Check real-source time availability independently. Fixtures do not establish archive validity.
+   Record numeric coverage and real failures. Keep overlapping origins. Missing actuals leave metrics null.
+6. Smoke-test the UI. Optional `--with-agent` requires configured OpenAI key/model, and must preserve numbers.
+7. Commit substantive progress and push to the team repository at least hourly during the hackathon.
+   Merge reviewed/tested integration into main. Never publish fabricated target forecasts or quality claims.
 
-Outstanding external dependencies: Person A weather API adapter, Person B real trained model,
-actual generation, training/validation metadata, verified turbine cut-in/cut-out thresholds,
-OpenAI credentials and a model available to the team's account.
-
-
-Integration progress: Person B's `ml-model-mode-a` through abc7060 is merged into the MVP
-with common-file conflicts resolved, authoritative context forwarding and a separate native
-Kelmarsh MODE A UI/CLI/API path. Real weather A and validated Goldwind model transfer remain pending.
+Current reproducible blocked attempts and empty delivery CSVs are in `reports/target-acceptance/`.
+See [TARGET_ACCEPTANCE.md](TARGET_ACCEPTANCE.md) for requirement-level verification and remaining blockers.

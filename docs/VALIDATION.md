@@ -40,3 +40,37 @@ Environment: Python 3.12, pinned requirements.lock.txt, macOS arm64.
 - The running Streamlit server requires a restart after adding new schema modules (hot reload can retain old imports).
 - Still pending: A's real weather adapter, source-direction agreement and Goldwind validation.
   No live OpenAI call made. main is not yet the final integrated release.
+
+
+## Strict target forecast + B Goldwind preparation — 2026-09-23
+
+- Final integrated suite: **212 passed, 1 skipped**, 5.91 s on Python 3.12/macOS arm64.
+  The skip is optional LightGBM; selected frozen model uses sklearn. One upstream Starlette
+  TestClient deprecation warning remains. `pip check` reports no broken requirements.
+- PR #3 `e7e1f44` preparation loader integrated through Git. Corrected turbine identity after
+  caller reorders DataFrame indices; added regression. All 29 Goldwind parser tests pass,
+  including `-W error::DeprecationWarning`. No real organizer data or model is claimed.
+- New strict tests cover 24/48h grids, aware timestamps and local calendar/DST, issue/actual-revision
+  availability, training+selection cutoff, immutable snapshots, changed-input recomputation,
+  no repeated ML/LLM for unchanged inputs, partial station sums, raw metrics, retry after model
+  failure, provider failures, malformed/duplicate forecast rejection, and API/UI validation.
+- Provider dependency changes invalidate numeric cache. Unused optional wind direction does
+  not invalidate a model that uses only wind speed and temperature. Numeric/model/analysis
+  results publish atomically with a POSIX process lock; failures remain retryable.
+- Actual CLI attempts: readiness exit 2, ready=false; diagnostic origin Jan31 23:00Z exit 2,
+  blocked and zero predictions; February replay exit 2, blocked and zero origins because
+  organizer timezone/schedule are unknown. The origin is a diagnostic example, not confirmed
+  protocol. Copied JSON, header-only CSV and manifest: `reports/target-acceptance/`.
+- Real target acceptance remains blocked: organizer SCADA/definitions, actual archived weather
+  provider with availability evidence, Goldwind artifact/manifest. February actuals are absent,
+  so real target metrics remain null. Tests use explicit artificial contract fixtures only.
+- Regression smoke: synthetic 24h forecast succeeds; Kelmarsh 1 observed 2017-11-08 returns
+  144/144 pairs, MAE 51.39 kW and RMSE 71.46 kW. Frozen Kelmarsh artifact/data unchanged.
+- Browser smoke after server restart: target is default, exact blockers visible, calculate
+  disabled; switching to Kelmarsh and running shows real 144/144 pairs, model/fact plots,
+  deterministic analysis and JSON download. Returned browser to target screen.
+- No live target-weather fetch, target training/inference or OpenAI call validated.
+  The strict manifest is an assertion that needs independent lineage/source review.
+- Source/config/docs credential-pattern scan and Git whitespace check passed.
+
+Requirement-level evidence: [TARGET_ACCEPTANCE.md](TARGET_ACCEPTANCE.md).

@@ -140,7 +140,8 @@ def prepare_hourly(raw, contract):
     for name in ["timestamp", "wind_speed", "temperature", "target"]:
         if name not in canonical:
             raise ValueError(f"Missing mapped column: {name}")
-    data["turbine_id"] = raw["_organizer_turbine"]
+    # Keep identity attached to the same row after resetting a caller's index.
+    data["turbine_id"] = data["_organizer_turbine"]
     if not data.turbine_id.isin(TURBINES).all():
         raise ValueError("Unconfirmed turbine identity")
     duration = pd.Timedelta(np.timedelta64(contract.interval_minutes, "m"))
