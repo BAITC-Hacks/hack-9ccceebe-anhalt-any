@@ -1,9 +1,9 @@
 {
   "confirmed": false,
-  "timezone": null,
-  "daily_origin_hour": null,
+  "timezone": "Asia/Almaty",
+  "daily_origin_hour": 23,
   "first_lead_hour": 1,
   "interval_label": "start",
   "normalization": "fraction_of_rated_power",
-  "evidence": "Pending organizer dataset: do not infer timezone or normalized target definition."
+  "evidence": "Execution/output schedule selected by the team: config/forecast_schedule.json and docs/FORECAST_SCHEDULE_DECISION.md. First origin 2026-01-31T23:00:00+05:00. Source CSV timezone, interval semantics and target normalization remain unconfirmed; schedule selection alone must not enable the target forecast."
 }

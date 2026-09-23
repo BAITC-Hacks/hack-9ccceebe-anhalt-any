@@ -1,0 +1,643 @@
+{
+  "verified_at": "2026-09-23T11:57:28.983460+00:00",
+  "scope": "Data preparation and real archive retrieval only; NOT a certified point-in-time power forecast",
+  "history": {
+    "sources": [
+      {
+        "file": "historical_hourly.csv",
+        "sha256": "6815a27799acddbd50d64dca2bed97e8095c29f8462f070ec6197ab6268dd78a",
+        "rows": 50784
+      }
+    ],
+    "timezone": null,
+    "power_unit": "unconfirmed_source_units",
+    "kind": "observed",
+    "quality_report": {
+      "input_rows": 50784,
+      "output_rows": 50784,
+      "exact_duplicates_removed": 0,
+      "missing_measurement": 2098,
+      "negative_wind": 0,
+      "suspect_temperature": 0,
+      "negative_power": 0
+    },
+    "rows_per_turbine": {
+      "T1": 25392,
+      "T2": 25392
+    },
+    "first_time": "2023-03-11T00:00:00",
+    "last_time": "2026-01-31T23:00:00",
+    "complete_finite_hours": 48452,
+    "feature_columns": [
+      "wind_speed",
+      "temperature",
+      "hour",
+      "month",
+      "day_of_year",
+      "sin_hour",
+      "cos_hour",
+      "sin_month",
+      "cos_month"
+    ]
+  },
+  "weather": {
+    "endpoint": "https://single-runs-api.open-meteo.com/v1/forecast",
+    "model": "ecmwf_ifs",
+    "wind_height_m": 80,
+    "run_hour_utc": 0,
+    "horizon_h": 48,
+    "successful_requests": 58,
+    "total_hour_rows": 2784,
+    "offline_cache_replay": "58/58 loaded with HTTP disabled",
+    "availability_confirmed": false,
+    "requests": [
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-01-31T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "0806e9a57eff85b9dc4164f03c4869e5a26aad3ba0c67aaa66b512a5e7de8d38",
+        "cache_file": "ba16e89f698526a06a3b19ab7b35b51fe69cb3fc9ea215f4237e3289f5f16516.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-01-31T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "0806e9a57eff85b9dc4164f03c4869e5a26aad3ba0c67aaa66b512a5e7de8d38",
+        "cache_file": "898b7989c390a067baf7fb4107e47e6e7945e9212d465c6bdda17db33b4c2da5.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-01T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "d750f7310355f9bacdc2825cd8d772e51a255d1e0f1153a177140f96dd90a4a6",
+        "cache_file": "756c9f80d9e1f3a94ba56581a2ab289f54ea3d66c0465733b65c934d07aa09da.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-01T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "d750f7310355f9bacdc2825cd8d772e51a255d1e0f1153a177140f96dd90a4a6",
+        "cache_file": "54fb930f5b03a726f8f497b304ba2d2bd64d0bfe20d47b33c2f61978aaa5982a.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-02T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "aabb2ea690136632165ec8cb72eccad5d77f1917c71699863d1ad10bdf7b1f72",
+        "cache_file": "bdc90d8e7124376a2fa0b2ba8e2fba38762183d41ca4000964db668f90cbe2df.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-02T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "aabb2ea690136632165ec8cb72eccad5d77f1917c71699863d1ad10bdf7b1f72",
+        "cache_file": "46c3403ddd566ca5a0bc3e3848c52620c1852ac579ffe93d925d7dbd36963a63.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-03T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "8c008f65e5fa32fbf4d291e114cfee32a3ddc9c798efd7444c71d08530c7c231",
+        "cache_file": "2ae18fc03900441c9e82216b4665d53f412f4e344443256cea18ce55021f5a91.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-03T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "8c008f65e5fa32fbf4d291e114cfee32a3ddc9c798efd7444c71d08530c7c231",
+        "cache_file": "1b3f75e9e236b43c5f5979662b920a1d5154c290f56debf83d11bb0ed7f26074.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-04T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "fd2e6bff78b6f4090d89651c1f169fd457091dd6b1fbb05da458f76fb626dbe5",
+        "cache_file": "39a15778147da8a3d20ebeee04bf6eb64ce2a0ac2d6eef413206277569efacfa.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-04T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "fd2e6bff78b6f4090d89651c1f169fd457091dd6b1fbb05da458f76fb626dbe5",
+        "cache_file": "586300a8b213f2a8dad3f0fa03818d70c5422a5ee7b53a14fb29d5880c6e67ec.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-05T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "59b2b55478b6adcc76d41863bbb519930c0e8e481cc9aa29c83f92498003c91d",
+        "cache_file": "f515beeb3f7ff4ac7f81f7663709931f80ef0589404b4f405b323871321141eb.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-05T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "59b2b55478b6adcc76d41863bbb519930c0e8e481cc9aa29c83f92498003c91d",
+        "cache_file": "fc85607f09820beace66516b94645c97c743a17acf32dcf5e8ab164256e499b1.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-06T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "6697cd379cf123858d47ea3ba7ad9149650161285fbe2b9f95b3f80392a4a63b",
+        "cache_file": "f95b01a5bd50da5f51ce71b1a6e05d23395dd9aff0ba822543e3ba19ec70612f.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-06T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "6697cd379cf123858d47ea3ba7ad9149650161285fbe2b9f95b3f80392a4a63b",
+        "cache_file": "5219b3f8d2801b982a69f2b58629f261ea2772c10538c79cec2cba921c03acd0.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-07T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "9ebdd2d0216168780009379f4e127f0b25f1b79bc81c24b0424091284da47e93",
+        "cache_file": "a76125ca146294ee2e8a0fa59ab1142ea257108857505b5393d3266f469fcbc5.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-07T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "9ebdd2d0216168780009379f4e127f0b25f1b79bc81c24b0424091284da47e93",
+        "cache_file": "94ced4e4ca08b0b0a8deff87a3e5b2ff4518c1066ee09a8b2335924d11080377.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-08T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "1ceb8970ecb3df90d2e4be18be30b3bc22ebf0aec80586936ae5be189f8bf0ac",
+        "cache_file": "c2cf45b78043dac7f72f1a43cfa7a14ecd390f9491bfe959d364ec43468dcb5e.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-08T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "1ceb8970ecb3df90d2e4be18be30b3bc22ebf0aec80586936ae5be189f8bf0ac",
+        "cache_file": "be9bf4db80876f4f27b51c918917cb30536e57be63b51bad72391e2fb71d3819.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-09T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "38f6ffce772fd1295c9056fa2dba6117c5ae58479b3148226db0aafff2e90a6d",
+        "cache_file": "b74e990babd49807c97ce66b5286cebbe420771fb405bee5d1283bade0f12624.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-09T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "38f6ffce772fd1295c9056fa2dba6117c5ae58479b3148226db0aafff2e90a6d",
+        "cache_file": "48821e22d939c5f6843b5afb24285ffc2528c00294a7a39ba85365d57666e413.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-10T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "80e9f1fc5248199acc28fb99682e096c4b0191704ba1d75bedce58f2cf2c2d3d",
+        "cache_file": "eeb6a690c1938ed2d5e2225b7f1cba7fc8ce400e25eefc56a7411a132c5e096e.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-10T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "80e9f1fc5248199acc28fb99682e096c4b0191704ba1d75bedce58f2cf2c2d3d",
+        "cache_file": "9e1e39ba99d1d99a0c215f3cdc5fecf6571bdaf9d30c9a1d7b0dbd711f90640a.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-11T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "3ad8c4735cd38e123b8fa839ad58f3a108ea1227f503b36357b282ccd2b41ba2",
+        "cache_file": "0ac9a126d79eac7c0454bdbf217d20c2389479a3f9d140d03eac4dcaa0e547df.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-11T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "3ad8c4735cd38e123b8fa839ad58f3a108ea1227f503b36357b282ccd2b41ba2",
+        "cache_file": "8d4213140d706c6f8559539b2a13977d5d231e4c447f348ab6befbfed55b063b.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-12T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "61fc61a606ce6637d07d2ff1ef103123b504a27321eb61e8678cff65db7767ff",
+        "cache_file": "acf1e7a76e8302c9acc5f009548bfe182fc194ae58318e658dbc9f9b5873978d.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-12T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "61fc61a606ce6637d07d2ff1ef103123b504a27321eb61e8678cff65db7767ff",
+        "cache_file": "c62458a72a48bfb8ed289e9bb81de20bfd2bc9717c654cecdb0a048469e94739.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-13T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "f5053ca779aab04c6595f46915947b13126a536285110ec443dd3b6920bd7751",
+        "cache_file": "61ecebb3f6220e41ae7b281ed7239e0eccce027d93db3ff2a335a04895bc00b1.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-13T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "f5053ca779aab04c6595f46915947b13126a536285110ec443dd3b6920bd7751",
+        "cache_file": "6e987753feed8ac1b19d45051e69901e7d082c9ae84670e994b2596ef8d4045e.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-14T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "7bf78686368fb1d9d932c1794cc5baf499f4f47e61ad3ae5a9672d749ad7c670",
+        "cache_file": "63912e91b6c68316177a6d1eb033a8590bf64318cd9354f19fc540331b2160e0.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-14T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "7bf78686368fb1d9d932c1794cc5baf499f4f47e61ad3ae5a9672d749ad7c670",
+        "cache_file": "ee2dc1890ada657bf5f36709d1d4996a11c7f46dc63fc87b881da6af6f76d2fb.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-15T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "87e9bb5cde4d9742a0e2aa01ec95f701010b69b0a46a1dd2dc7106ed5f135e4b",
+        "cache_file": "bebaf9a2771217eae045d88c102dcbf6de57c8fc1760a973cf101804502d1580.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-15T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "87e9bb5cde4d9742a0e2aa01ec95f701010b69b0a46a1dd2dc7106ed5f135e4b",
+        "cache_file": "526acf08a100ee760cc5d574b3a1fa8db9bbb1a281591c834a6ddded7998987b.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-16T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "ff8ce80beb65bd8d6f6706a2880c5a667b7a7822d668b4598a65d74efa45d52b",
+        "cache_file": "51a7bf4699b271c6d8bf9984f7c5f25d79eccf72882b10571293d5b4ac9d9505.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-16T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "ff8ce80beb65bd8d6f6706a2880c5a667b7a7822d668b4598a65d74efa45d52b",
+        "cache_file": "5265fd2df24ab09847769b7b3b2a8604988b126be06b6dc5f42179a792ffcdb9.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-17T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "d8b1a1c024e4f7886192961282a6412ce1089550bcb9437d0c3a729f639d6f73",
+        "cache_file": "55ff5f462b43125c610469c5ee5257b77758302aabcae0b2c8380ed34c6ec1ee.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-17T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "d8b1a1c024e4f7886192961282a6412ce1089550bcb9437d0c3a729f639d6f73",
+        "cache_file": "05f2aafe507ff53962ae6ad887d77ba71655d453567f3afb493c8ba277c96374.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-18T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "dd310240123890fd3784553c1eba6586723aca07de6ad333784d0b49e1e50e69",
+        "cache_file": "b324e117e19d89679802a18ee57a4851861b6184c1db7d606d8e9c2f814182c9.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-18T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "dd310240123890fd3784553c1eba6586723aca07de6ad333784d0b49e1e50e69",
+        "cache_file": "5c21b56e325608a5eca16d42ed67990f3dfe792e022a511a7d8f34636305daeb.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-19T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "d8714ee11853517d5ed45eff0f380804bc93f2724ec196c8fe5bfceb82fd18cc",
+        "cache_file": "a4f4428177b2d8af9ceeaf415f725f04582dee8817ea68d771f207a9012a6938.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-19T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "d8714ee11853517d5ed45eff0f380804bc93f2724ec196c8fe5bfceb82fd18cc",
+        "cache_file": "38f6cb1204c022c1f23dc14bc7ef9d1fada38d8b0c3de16dfac804686c32a5cf.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-20T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "24eae263723a516c7a91a745ee398fd47593bc68b00fbc968c1e9ff7a710467c",
+        "cache_file": "62dd86779033fb59d00f6e8f5e968ac001566b71aa4c79c1853e53f4b193804c.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-20T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "24eae263723a516c7a91a745ee398fd47593bc68b00fbc968c1e9ff7a710467c",
+        "cache_file": "fe2dc3ef1146263219aa1e0861308037673a384739bd2309228f798bb0a3c747.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-21T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "704dcd851ae3b5c38ff10c240d2e01936adb2aba350311c01551c83ab592289a",
+        "cache_file": "6bd30051c11079d351ac9f0834d5f50f400d2d594f55fd4640a6dc113013a5a6.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-21T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "704dcd851ae3b5c38ff10c240d2e01936adb2aba350311c01551c83ab592289a",
+        "cache_file": "aea1e7639f5b9e73c2797924cb3d85fc7132d3f5c8cbf7f7cf119a9fb757fed2.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-22T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "9c09ba00d9c021c4423ff6e924290d149ad4220340d253ead5cbe11988c86415",
+        "cache_file": "945895d2bff8b08b7d0b848b26e333f310a7078f89b02958970d5bdd8a771852.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-22T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "9c09ba00d9c021c4423ff6e924290d149ad4220340d253ead5cbe11988c86415",
+        "cache_file": "b4b2088c855549a1b874f40f02f31ecb3a885bfc42758d5013bb1f320e51a3b0.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-23T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "b23df1856412d3de724b51a3f3ed00fec8440c319a5cf2af968a29c458d791c0",
+        "cache_file": "da90b7624f7f29dc8990e1c06185ba1e2dec834624ab8cd551ade0a99675a17d.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-23T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "b23df1856412d3de724b51a3f3ed00fec8440c319a5cf2af968a29c458d791c0",
+        "cache_file": "603c125fb22542ef328e7151a0529c0a5893109a5daf107876fde95211867f52.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-24T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "3cb6679535a141c20e7f03bdf23ee41957900d031343cee408489e9dc2dc1afa",
+        "cache_file": "d31b44eb90a0cd3088c57586e25ea4bd97c2b9cd70906063dafe76a4d9b8dc0a.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-24T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "3cb6679535a141c20e7f03bdf23ee41957900d031343cee408489e9dc2dc1afa",
+        "cache_file": "fd499f366e5011ff616c4018fc1818253dde3639b22b8b4f7fe6aafe23414d9a.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-25T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "1332e9c27478a9d35bb2833ee6c36c6a368fd1fb5c9c013bdab3c118f712fa79",
+        "cache_file": "d3daacad15bc1fc405a588287852033fc6030edd5c992955f4c6ebbef9a05f2d.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-25T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "1332e9c27478a9d35bb2833ee6c36c6a368fd1fb5c9c013bdab3c118f712fa79",
+        "cache_file": "3291ab79ec2c4ee05b08ddf564c9815cc73f92b17900d1d5258496c9717de714.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-26T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "49010a8967b20d30434ec05e35187d8bd715a35d4125dbf9a22ec4c7d9792404",
+        "cache_file": "f597e67af5bd4ec66abcbde1d5205720eb9238e03bd928ab09e37b891e9ace66.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-26T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "49010a8967b20d30434ec05e35187d8bd715a35d4125dbf9a22ec4c7d9792404",
+        "cache_file": "0c1be2b8a464754237e40eb858911fbf0803a08473478d3eb0f748256c3781dc.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-27T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "bac8859e4b85aced8876ba2195b54eb1a6bc5292e5537dfd8bc91f5b2d66cfd0",
+        "cache_file": "7181629782b4d514801894a1299f28dead85b4c6c348ced602bf353fd7f8187c.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-27T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "bac8859e4b85aced8876ba2195b54eb1a6bc5292e5537dfd8bc91f5b2d66cfd0",
+        "cache_file": "0d1c651c7fb8959f8c42f515f089877dfec76b2b8047a36d1698833b46a8f35f.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T1",
+        "issued_at": "2026-02-28T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "1653b3d71c91288a66f754787f056f0330f7826136324c926d1f6a0bad9048f2",
+        "cache_file": "b1655e6767d6d176d790f7b7b7cfcca62584c83f7f93a042121deaaeba7fb727.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      },
+      {
+        "turbine_id": "T2",
+        "issued_at": "2026-02-28T00:00:00+00:00",
+        "rows": 48,
+        "missing_hours": 0,
+        "payload_sha256": "1653b3d71c91288a66f754787f056f0330f7826136324c926d1f6a0bad9048f2",
+        "cache_file": "98de295e45ed698f6db2685a36e407e03cd83cb957741699307c39b4ee1ea4d6.json",
+        "grid_latitude": 43.620384,
+        "grid_longitude": 78.47891
+      }
+    ]
+  },
+  "limitations": [
+    "Source timestamp timezone/interval labels unconfirmed",
+    "Source turbine mapping, power scale, wind measurement height and SCADA availability unconfirmed",
+    "No February actual power",
+    "Archive hindcast/operational availability evidence unresolved; retrieved_at is not available_at",
+    "No target-station model training or power accuracy claim"
+  ]
+}

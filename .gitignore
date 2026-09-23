@@ -8,6 +8,8 @@ __pycache__/
 .ruff_cache/
 .DS_Store
 data/cache/
+data/weather_cache/
+data/processed/
 results/
 *.egg-info/
 venv/
