@@ -1,0 +1,20 @@
+{
+  "T1": {
+    "latitude": 43.645150,
+    "longitude": 78.535604,
+    "rated_power_kw": 2500.0,
+    "hub_height_m": 80.0,
+    "model_name": "Goldwind GW109/2500",
+    "cut_in_ms": 3.0,
+    "cut_out_ms": 25.0
+  },
+  "T2": {
+    "latitude": 43.643198,
+    "longitude": 78.538828,
+    "rated_power_kw": 2500.0,
+    "hub_height_m": 80.0,
+    "model_name": "Goldwind GW109/2500",
+    "cut_in_ms": 3.0,
+    "cut_out_ms": 25.0
+  }
+}

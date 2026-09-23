@@ -1,0 +1,9 @@
+{
+  "confirmed": false,
+  "timezone": null,
+  "daily_origin_hour": null,
+  "first_lead_hour": 1,
+  "interval_label": "start",
+  "normalization": "fraction_of_rated_power",
+  "evidence": "Pending organizer dataset: do not infer timezone or normalized target definition."
+}

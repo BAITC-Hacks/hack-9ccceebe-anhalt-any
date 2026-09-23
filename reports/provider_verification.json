@@ -1,0 +1,46 @@
+{
+  "mode": "A",
+  "rows": 47006,
+  "no_retraining": true,
+  "no_holdout_changes": true,
+  "artifact_sha256": "e2e996fb4289384dd2b776270ce010dfdf1076bb7bf0ea94b19819e88c6e8618",
+  "holdout_sha256_crlf": "0d25be3cf926332c2f923f16f5c6c7a6b008b105be74634c6cebafa303e51701",
+  "training_cutoff": "2017-09-14T02:40:00+00:00",
+  "selection_cutoff": "2017-11-07T13:00:00+00:00",
+  "test_start": "2017-11-07T13:10:00+00:00",
+  "test_end": "2017-12-31T23:50:00+00:00",
+  "dataframe_api": {
+    "raw": {
+      "MAE": 0.040441313830701264,
+      "RMSE": 0.07082455020525537,
+      "R2": 0.9530159122008534,
+      "normalized_MAE": 0.040441313830701264
+    },
+    "served": {
+      "MAE": 0.04039838023174107,
+      "RMSE": 0.07081149638978826,
+      "R2": 0.9530332300684281,
+      "normalized_MAE": 0.04039838023174107
+    }
+  },
+  "provider_raw_kw": {
+    "MAE": 82.9046933529376,
+    "RMSE": 145.1903279207735,
+    "R2": 0.9530159122008534
+  },
+  "provider_raw_normalized": {
+    "MAE": 0.040441313830701264,
+    "RMSE": 0.07082455020525537,
+    "R2": 0.9530159122008534,
+    "normalized_MAE": 0.040441313830701264
+  },
+  "provider_negative_predictions": 210,
+  "provider_above_rated_predictions": 1,
+  "artifact_training_versions": {
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.9.1",
+    "lightgbm": "4.7.0",
+    "joblib": "1.6.0"
+  }
+}

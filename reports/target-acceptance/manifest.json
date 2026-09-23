@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-23T11:10:03.350593+00:00",
+  "status": "blocked",
+  "readiness": {
+    "protocol_confirmed": false,
+    "actuals_provided": false,
+    "model_artifact_present": false,
+    "model_manifest_present": false
+  },
+  "configuration": {
+    "origin_start": "2026-01-31",
+    "origin_end": "2026-02-28",
+    "horizon_h": 48,
+    "refresh": false,
+    "with_agent": false,
+    "data_module": "",
+    "ml_module": "",
+    "actuals_interval_label": "start",
+    "actuals_timestamp_policy": "timezone-aware; converted to UTC",
+    "actuals_power_unit": "raw kW; negatives retained"
+  },
+  "provenance": {
+    "model_artifact": {
+      "path": "/Users/eroxa/Documents/Codex/2026-09-23/files-pasted-by-the-user-lead/outputs/ai-energy-agent/models/goldwind/power_model.joblib",
+      "sha256": null
+    },
+    "model_manifest": {
+      "path": "/Users/eroxa/Documents/Codex/2026-09-23/files-pasted-by-the-user-lead/outputs/ai-energy-agent/models/goldwind/forecast_manifest.json",
+      "sha256": null
+    },
+    "forecast_protocol": {
+      "path": "/Users/eroxa/Documents/Codex/2026-09-23/files-pasted-by-the-user-lead/outputs/ai-energy-agent/config/forecast_protocol.json",
+      "sha256": "a2bef5b255759b18835cc78c93813e72e54c80631d87ff9baf25dbda2c9849b8"
+    },
+    "turbines": {
+      "path": "/Users/eroxa/Documents/Codex/2026-09-23/files-pasted-by-the-user-lead/outputs/ai-energy-agent/config/turbines.json",
+      "sha256": "dd1d35783bdd197a6cf4bab1dd072779af5499fc998c991bb4b439fa2b4294d6"
+    }
+  },
+  "runs": [],
+  "run_ids": [],
+  "failures": [
+    {
+      "forecast_origin": null,
+      "errors": {
+        "protocol": "Provide confirmed forecast protocol: timezone, daily_origin_hour, first_lead_hour and organizer evidence"
+      }
+    }
+  ],
+  "metrics": null,
+  "coverage": {
+    "expected_forecast_rows": null,
+    "received_forecast_rows": 0,
+    "finite_raw_forecast_rows": 0,
+    "missing_forecast_rows": null
+  },
+  "model_versions": [],
+  "weather_versions": [],
+  "files": {
+    "predictions.csv": {
+      "path": "results/target-february/predictions.csv",
+      "sha256": "6b5e92259932f018077f896e0d7ed5e5fcf1fbd01f4f2c47235cc0981dc91591"
+    },
+    "farm.csv": {
+      "path": "results/target-february/farm.csv",
+      "sha256": "fd6bd58719e65d640385102d2c0af4b4726abce5d4c3b4d244b8f14048bad1f1"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "synthetic-random-forest-v1",
+  "synthetic": true,
+  "training": "3000 synthetic samples, idealized power curve, seed 2026",
+  "features": [
+    "wind_speed_ms",
+    "temperature_c"
+  ],
+  "output_unit": "kW",
+  "rated_power_kw": 2500,
+  "sklearn_version": "1.9.1",
+  "limitations": "Not validated on real turbines; no calibrated uncertainty"
+}

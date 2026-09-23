@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+data/cache/
+results/
+*.egg-info/
+venv/
+data/raw/**/*.zip
+*.part
